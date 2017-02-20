@@ -4,11 +4,16 @@
   "description": "Kickstarter project for ReactJS applications",
   "main": "dev-server.js",
   "scripts": {
-    "eslint": "./node_modules/.bin/eslint src",
+    "eslint": "eslint src",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "start": "NODE_ENV=development webpack-dev-server",
     "build": "rimraf dist && NODE_ENV=production webpack",
     "dev": "npm run eslint && NODE_ENV=development node dev-server.js"
   },
+  "pre-commit": [
+    "precommit-msg",
+    "eslint"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -32,11 +37,12 @@
     "happypack": "^3.0.2",
     "html-webpack-plugin": "^2.28.0",
     "open-browser-webpack-plugin": "0.0.3",
+    "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack-server": "^0.1.2",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "webpack-server": "^0.1.2"
   },
   "dependencies": {
     "eslint": "^3.15.0",

@@ -15,24 +15,7 @@ import { fetchTodos, addTodo, checkTodo, deleteTodo } from '../actions/todoActio
 
  // Internal components
 import NewTodoModal from './NewTodoModal';
-
-const styles = {
-  center: {
-    textAlign: 'center',
-  },
-  checkedItem: {
-    textDecoration: 'line-through',
-  },
-  rightIconButton: {
-    top: '10px',
-    zIndex: 10,
-  },
-  iconNoItems: {
-    height: '60px',
-    width: '60px',
-    color: 'rgba(0, 0, 0, 0.4)',
-  },
-};
+// import * as styles from './Todo.scss';
 
 const Todo = class Todo extends Component {
   constructor(props) {
@@ -80,17 +63,18 @@ const Todo = class Todo extends Component {
 
   renderTodos() {
     let todos = '';
+    console.log(styles);
 
     if (this.props.fetching) {
       todos = (
-        <div style={styles.center}>
+        <div className={styles.center}>
           <CircularProgress />
         </div>
       );
     } else if (this.props.todos.length === 0) {
       todos = (
-        <div style={styles.center}>
-          <ActionInfoOutline style={styles.iconNoItems} />
+        <div className={styles.center}>
+          <ActionInfoOutline className={styles.iconNoItems} />
           <div> No items </div>
         </div>
       );

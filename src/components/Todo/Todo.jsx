@@ -132,23 +132,27 @@ const Todo = class Todo extends Component {
 
 
 // Redux
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = (state) => {
+  const props = {
     todos: state.todo.items,
     fetching: state.todo.fetching,
     fetched: state.todo.fetched,
     error: state.todo.error,
   };
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
+  return props;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const props = {
     fetchTodos: bindActionCreators(fetchTodos, dispatch),
     addTodo: bindActionCreators(addTodo, dispatch),
     checkTodo: bindActionCreators(checkTodo, dispatch),
     deleteTodo: bindActionCreators(deleteTodo, dispatch),
   };
-}
+
+  return props;
+};
 
 Todo.defaultProps = {
   fetchTodos: () => {},

@@ -1,27 +1,14 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
-
-const styles = {
-  titleText: {
-    margin: '-8px 0px',
-    paddingTop: '0px',
-    letterSpacing: '0px',
-    fontSize: '24px',
-    fontWeight: 400,
-    color: 'rgb(255, 255, 255)',
-    height: '64px',
-    lineHeight: '64px',
-    flex: '1 1 0%',
-  },
-};
+import styles from './Header.scss';
 
 const Header = class Header extends Component {
 
   renderStats() {
     const checkedCount = this.props.todos.filter(item => item.checked).length;
     return (
-      <div style={styles.titleText}>
+      <div className={styles.titleText}>
         Total: { this.props.todos.length }
         &nbsp; - &nbsp;
         Checked: { checkedCount }
@@ -39,7 +26,6 @@ const Header = class Header extends Component {
     );
   }
 };
-
 
 // Redux
 function mapStateToProps(state) {

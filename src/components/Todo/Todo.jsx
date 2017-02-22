@@ -11,11 +11,11 @@ import IconButton from 'material-ui/IconButton';
 // Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchTodos, addTodo, checkTodo, deleteTodo } from '../actions/todoActions';
+import { fetchTodos, addTodo, checkTodo, deleteTodo } from '../../redux/actions/todoActions';
 
  // Internal components
-import NewTodoModal from './NewTodoModal';
-// import * as styles from './Todo.scss';
+import NewTodoModal from './NewTodoModal/NewTodoModal';
+import styles from './Todo.scss';
 
 const Todo = class Todo extends Component {
   constructor(props) {
@@ -63,7 +63,6 @@ const Todo = class Todo extends Component {
 
   renderTodos() {
     let todos = '';
-    console.log(styles);
 
     if (this.props.fetching) {
       todos = (
@@ -82,22 +81,22 @@ const Todo = class Todo extends Component {
       todos = (
         <List>
           { this.props.todos.map(item =>
-            <ListItem
-              key={item.name}
-              innerDivStyle={item.checked ? styles.checkedItem : {}}
-              leftCheckbox={
-                <Checkbox
-                  checked={item.checked}
-                  onCheck={() => this.handleCheckItem(item.id)}
-                />
-              }
-              primaryText={item.name}
-              rightIconButton={
-                <IconButton tooltip="Delete item" onClick={() => this.handleDeleteItem(item.id)}>
-                  <ActionDelete />
-                </IconButton>
-              }
-            />,
+            <span key={item.name} className={item.checked ? styles.checkedItem : {}}>
+              <ListItem
+                leftCheckbox={
+                  <Checkbox
+                    checked={item.checked}
+                    onCheck={() => this.handleCheckItem(item.id)}
+                  />
+                }
+                primaryText={item.name}
+                rightIconButton={
+                  <IconButton tooltip="Delete item" onClick={() => this.handleDeleteItem(item.id)}>
+                    <ActionDelete />
+                  </IconButton>
+                }
+              />
+            </span>,
           )}
         </List>
       );

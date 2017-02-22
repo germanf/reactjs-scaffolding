@@ -9,8 +9,8 @@ import { blue500, blue700, pinkA200, grey100, grey300, grey400, grey500,
          white, darkBlack, fullBlack } from 'material-ui/styles/colors';
 
 // Internal components
-import Header from './Header';
-import Todo from '../todo/Todo';
+import Header from './Header/Header';
+import Todo from '../Todo/Todo';
 
 // Material-ui definitions
 injectTapEventPlugin();

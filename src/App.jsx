@@ -5,10 +5,10 @@ import ReactDOM from 'react-dom';
 
 // Redux
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './redux/store';
 
 // Internal components
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 
 // App with redux wrapper
 const AppRedux = () => (

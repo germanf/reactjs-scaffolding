@@ -51,7 +51,11 @@ module.exports = {
       exclude: '/node_modules/',
     }, {
       test: /\.scss$/,
-      loaders: ['style', 'css', 'sass'],
+      loaders: [
+        'style-loader',
+        'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]--[hash:base64:3]',
+        'sass-loader?precision=10&indentedSyntax=sass',
+      ],
       exclude: '/node_modules/',
     }, {
       test: /\.(png|jpg|gif)$/, // every png, jpg, gif

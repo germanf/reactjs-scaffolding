@@ -33,19 +33,6 @@ const muiTheme = getMuiTheme({
   },
 });
 
-/*
-export default function Layout() {
-  return (
-    <MuiThemeProvider muiTheme={muiTheme}>
-      <div>
-        <Header title="To do list" />
-        <Todo />
-      </div>
-    </MuiThemeProvider>
-  );
-}
-*/
-
 export default () => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <div>

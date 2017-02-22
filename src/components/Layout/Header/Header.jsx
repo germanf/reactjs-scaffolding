@@ -28,14 +28,15 @@ const Header = class Header extends Component {
 };
 
 // Redux
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = (state) => {
+  const props = {
     todos: state.todo.items,
     fetching: state.todo.fetching,
     fetched: state.todo.fetched,
     error: state.todo.error,
   };
-}
+  return props;
+};
 
 Header.defaultProps = {
   todos: [],

@@ -3,9 +3,9 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
-function focus(e) {
+const focus = (e) => {
   if (e) { e.focus(); }
-}
+};
 
 const NewTodoItem = class NewTodoItem extends Component {
   constructor(props) {

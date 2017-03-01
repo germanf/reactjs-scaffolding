@@ -7,12 +7,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-import Test from './components/Test'
+import Index from './components'
 
 // React render
 ReactDOM.render(
   <Provider store={store}>
-    <Test />
+    <Index />
   </Provider>,
   document.getElementById('app'),
 );

@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { Card, CardText } from 'material-ui/Card';
+import CircularProgress from 'material-ui/CircularProgress';
+
+// Material-ui
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchTest, addTest, deleteTest } from '../redux/actions/testActions';
+import { fetchTest } from '../redux/actions/testActions';
+
+// Material-ui definitions
+injectTapEventPlugin();
 
 const Test = class Test extends Component {
   constructor(props) {
@@ -17,14 +24,17 @@ const Test = class Test extends Component {
   }
 
   render() {
+    let view = <CircularProgress />;
+    if (!this.props.loading) {
+      view = <div>Welcome to WhitePrompt scaffolding!</div>;
+    }
+
     return (
-      <div>
-        <Card>
-          <CardText expandable={false}>
-            Welcome to WhitePrompt scaffolding!
-          </CardText>
-        </Card>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          {view}
+        </div>
+      </MuiThemeProvider>
     );
   }
 };

@@ -7,19 +7,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-// Internal components
-import Layout from './components/Layout/Layout';
-
-// App with redux wrapper
-const AppRedux = () => (
-  <Provider store={store}>
-    <Layout />
-  </Provider>
-);
+import Test from './components/Test'
 
 // React render
 ReactDOM.render(
-  <AppRedux />,
+  <Provider store={store}>
+    <Test />
+  </Provider>,
   document.getElementById('app'),
 );
 

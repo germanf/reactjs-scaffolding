@@ -3,6 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const DEV_SERVER_URL = 'http://localhost:8080';
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -34,6 +35,11 @@ plugins.push(
       DEVELOPMENT: JSON.stringify(DEVELOPMENT),
       PRODUCTION: JSON.stringify(PRODUCTION),
     }),
+    new ExtractTextPlugin({
+      filename: 'bundle-[hash].css',
+      disable: false,
+      allChunks: true,
+    }),
 );
 
 module.exports = {
@@ -45,26 +51,41 @@ module.exports = {
     filename: 'bundle.[hash:12].min.js',
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/, // every js file will be transpiled
-      loaders: ['babel-loader'],
-      exclude: '/node_modules/',
-    }, {
-      test: /\.scss$/,
-      loaders: [
-        'style-loader',
-        'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]--[hash:base64:3]',
-        'sass-loader?precision=10&indentedSyntax=sass',
-      ],
-      exclude: '/node_modules/',
-    }, {
-      test: /\.(png|jpg|gif)$/, // every png, jpg, gif
-      loaders: ['url-loader?limit=10000&name=images/[hash:12].[ext]'], // https://github.com/webpack-contrib/url-loader this will short img file name and convert a 10KB files into base64 img tag
-      exclude: '/node_modules/',
-    }],
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader?modules', 'sass-loader'],
+        }),
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
+
+    modules: [
+      'node_modules',
+    ],
+
+    // Whenever someone does import 'react', resolve the one in the node_modules
+    // at the top level, just in case a dependency also has react in its node_modules,
+    // we don't want to be running to versions of react!!!
+    alias: {
+      react: path.join(__dirname, 'node_modules/react'),
+    },
   },
   plugins,
 };

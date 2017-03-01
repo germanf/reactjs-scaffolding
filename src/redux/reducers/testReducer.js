@@ -1,53 +1,39 @@
-
-// The reducer must initialize with an initial state
 const defaultState = {
+  loading: false,
   items: [],
-  fetching: false,
-  fetched: false,
   error: null,
 };
 
+const entityName = 'TEST';
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case 'TODO_FETCH': {
+    case `${entityName}_FETCH`: {
       return {
         ...state,
-        fetching: true,
+        loading: true,
       };
     }
-    case 'TODO_FETCH_REJECTED': {
+    case `${entityName}_FETCH_REJECTED`: {
       return {
         ...state,
-        fetching: false,
+        loading: false,
         error: action.payload,
       };
     }
-    case 'TODO_FETCH_FULFILLED': {
+    case `${entityName}_FETCH_FULFILLED`: {
       return {
         ...state,
-        fetching: false,
-        fetched: true,
+        loading: false,
         items: action.payload,
       };
     }
-    case 'TODO_ADD': {
+    case `${entityName}_ADD`: {
       return {
         ...state,
         items: [...state.items, action.payload],
       };
     }
-    case 'TODO_UPDATE_CHECK': {
-      const id = action.payload;
-      const newTodos = [...state.items];
-      const indexToUpdate = newTodos.findIndex(item => item.id === id);
-      newTodos[indexToUpdate].checked = !newTodos[indexToUpdate].checked;
-
-      return {
-        ...state,
-        items: newTodos,
-      };
-    }
-    case 'TODO_UPDATE': {
+    case `${entityName}_UPDATE`: {
       const { id } = action.payload;
       const newItems = [...state.items];
       const itemToUpdate = newItems.findIndex(item => item.id === id);
@@ -58,7 +44,7 @@ export default function reducer(state = defaultState, action) {
         items: newItems,
       };
     }
-    case 'TODO_DELETE': {
+    case `${entityName}_DELETE`: {
       const id = action.payload;
       let newItems = [...state.items];
 

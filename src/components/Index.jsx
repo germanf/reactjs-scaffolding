@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
 
 // Material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Redux

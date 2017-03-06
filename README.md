@@ -46,11 +46,11 @@ This project could be used as a default scaffolding for React projects. It has s
 ### 3. Project commands
 ---
 
-1. Running application (**Default port: 8080**)
+Running application (**Default port: 8080**)
 ```
     $ npm start
 ```
-2. Build for production (it will create a *dist* folder with bundled assets)
+Build for production (it will create a *dist* folder with bundled assets)
 ```   
     $ npm build
 ```

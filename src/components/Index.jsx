@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchTest } from '../redux/actions/testActions';
 
+import logoImg from '../assets/img/logo.png';
+import '../assets/css/style.css';
+
 const Test = class Test extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +23,10 @@ const Test = class Test extends Component {
     let view = <div>Loading data from server...</div>;
 
     if (!loading) {
-      view = <div>Welcome to WhitePrompt scaffolding!</div>;
+      view = <div>
+        <img src={logoImg} />
+        Welcome to WhitePrompt scaffolding!
+      </div>;
     }
 
     return (

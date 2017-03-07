@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchTest } from '../redux/actions/testActions';
 
+import imgLogo from '../assets/img/logo.png';
+import styles from '../assets/css/style.scss';
+
 const Test = class Test extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,7 @@ const Test = class Test extends Component {
     if (!loading) {
       view = (<div>
         <div>
+          <img alt="" className={styles.logo} src={imgLogo} />
           <h2>Welcome to WhitePrompt scaffolding!</h2>
         </div>
         <div>

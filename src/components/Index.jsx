@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 
-// Material-ui
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import CircularProgress from 'material-ui/CircularProgress';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 // Redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchTest } from '../redux/actions/testActions';
-
-// Material-ui definitions
-injectTapEventPlugin();
 
 const Test = class Test extends Component {
   constructor(props) {
@@ -24,17 +16,17 @@ const Test = class Test extends Component {
   }
 
   render() {
-    let view = <CircularProgress />;
-    if (!this.props.loading) {
+    const { loading } = this.props;
+    let view = <div>Loading data from server...</div>;
+
+    if (!loading) {
       view = <div>Welcome to WhitePrompt scaffolding!</div>;
     }
 
     return (
-      <MuiThemeProvider>
-        <div>
-          {view}
-        </div>
-      </MuiThemeProvider>
+      <div>
+        {view}
+      </div>
     );
   }
 };
@@ -44,6 +36,7 @@ const Test = class Test extends Component {
 function mapStateToProps(state) {
   return {
     items: state.test.items,
+    loading: state.test.loading,
   };
 }
 
@@ -55,10 +48,12 @@ function mapDispatchToProps(dispatch) {
 
 Test.defaultProps = {
   fetchTest: () => {},
+  loading: false,
 };
 
 Test.propTypes = {
   fetchTest: React.PropTypes.func,
+  loading: React.PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);

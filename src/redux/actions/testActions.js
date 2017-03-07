@@ -1,33 +1,29 @@
-export function fetchTest() {
-  return function fetch(dispach) {
-    dispach({ type: 'TEST_FETCH' });
+import axios from 'axios';
 
-    // Simulating a request
-    setTimeout(() => {
+const entityName = 'TEST';
+const actions = {
+  fetch: 'FETCH',
+};
+
+const baseUrl = 'https://jsonplaceholder.typicode.com';
+
+export const fetchTest = () => function fetch(dispach) {
+  dispach({ type: 'TEST_FETCH' });
+
+  axios.get(`${baseUrl}/posts`)
+    .then((response) => {
       dispach({
-        type: 'TEST_FETCH_FULFILLED',
-        payload: [{ name: 'Wash the dishes', checked: true }],
+        type: `${entityName}_${actions.fetch}_SUCCESS`,
+        payload: response.data,
       });
-    }, 3000);
-  };
-}
+    })
+    .catch((error) => {
+      dispach({
+        type: `${entityName}_${actions.fetch}_ERROR`,
+        payload: error,
+      });
+    });
+};
 
-export function addTest(name) {
-  // Assign a new id and checked false
-  const todo = {
-    name,
-    checked: false,
-  };
-
-  return {
-    type: 'TEST_ADD',
-    payload: todo,
-  };
-}
-
-export function deleteTest(id) {
-  return {
-    type: 'TEST_DELETE',
-    payload: id,
-  };
-}
+export const addTest = () => '';
+export const removeTest = () => '';

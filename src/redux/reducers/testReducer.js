@@ -17,18 +17,18 @@ export default function reducer(state = defaultState, action) {
         loading: true,
       };
     }
-    case `${entityName}_${actions.fetch}_REJECTED`: {
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    }
-    case `${entityName}_${actions.fetch}_FULFILLED`: {
+    case `${entityName}_${actions.fetch}_SUCCESS`: {
       return {
         ...state,
         loading: false,
         items: action.payload,
+      };
+    }
+    case `${entityName}_${actions.fetch}_ERROR`: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     }
     default: return state;

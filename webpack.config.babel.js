@@ -27,7 +27,7 @@ const plugins = PRODUCTION
     ? [new webpack.optimize.UglifyJsPlugin()]
     : [
       new OpenBrowserPlugin({ url: DEV_SERVER_URL }),
-      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
+      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: '[name].bundle-[hash].js' }),
     ];
 
 plugins.push(

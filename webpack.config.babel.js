@@ -5,6 +5,7 @@ import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+
 const DEV_SERVER_URL = 'http://localhost:8080';
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
@@ -13,24 +14,24 @@ console.log('============================ WhitePrompt ==========================
 console.log('Webpack is building for: ', PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT');
 
 const entry = PRODUCTION
-    ? './src/App.jsx'
-    : { app: [
-      './src/App.jsx',
-    ] };
+    ? {
+      app: ['./src/App.jsx'],
+    }
+    : {
+      app: ['./src/App.jsx'],
+      vendor: ['react', 'redux'],
+    };
 
 
 const plugins = PRODUCTION
-    ? [
-      new webpack.optimize.UglifyJsPlugin(),
-      new HtmlWebpackPlugin({ template: './index.html' }),
-    ]
+    ? [new webpack.optimize.UglifyJsPlugin()]
     : [
       new OpenBrowserPlugin({ url: DEV_SERVER_URL }),
-      new HtmlWebpackPlugin({ template: './index.html' }),
+      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
     ];
 
-// Injecting global variables into source code
 plugins.push(
+    new HtmlWebpackPlugin({ template: './index.html' }),
     new webpack.DefinePlugin({
       DEVELOPMENT: JSON.stringify(DEVELOPMENT),
       PRODUCTION: JSON.stringify(PRODUCTION),

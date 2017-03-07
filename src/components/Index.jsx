@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchTest } from '../redux/actions/testActions';
 
 import logoImg from '../assets/img/logo.png';
-import '../assets/css/style.css';
+import '../assets/css/style.scss';
 
 const Test = class Test extends Component {
   constructor(props) {

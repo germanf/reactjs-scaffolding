@@ -8,7 +8,7 @@ export function fetchTest() {
         type: 'TEST_FETCH_FULFILLED',
         payload: [{ name: 'Wash the dishes', checked: true }],
       });
-    }, 2000);
+    }, 3000);
   };
 }
 

@@ -1,59 +1,34 @@
 const defaultState = {
-  loading: false,
   items: [],
+  loading: false,
   error: null,
 };
 
 const entityName = 'TEST';
+const actions = {
+  fetch: 'FETCH',
+};
+
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case `${entityName}_FETCH`: {
+    case `${entityName}_${actions.fetch}`: {
       return {
         ...state,
         loading: true,
       };
     }
-    case `${entityName}_FETCH_REJECTED`: {
+    case `${entityName}_${actions.fetch}_REJECTED`: {
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
     }
-    case `${entityName}_FETCH_FULFILLED`: {
+    case `${entityName}_${actions.fetch}_FULFILLED`: {
       return {
         ...state,
         loading: false,
         items: action.payload,
-      };
-    }
-    case `${entityName}_ADD`: {
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      };
-    }
-    case `${entityName}_UPDATE`: {
-      const { id } = action.payload;
-      const newItems = [...state.items];
-      const itemToUpdate = newItems.findIndex(item => item.id === id);
-      newItems[itemToUpdate] = action.payload;
-
-      return {
-        ...state,
-        items: newItems,
-      };
-    }
-    case `${entityName}_DELETE`: {
-      const id = action.payload;
-      let newItems = [...state.items];
-
-      // Remove using filter
-      newItems = newItems.filter(item => item.id !== id);
-
-      return {
-        ...state,
-        items: newItems,
       };
     }
     default: return state;

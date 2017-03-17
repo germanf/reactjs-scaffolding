@@ -6,9 +6,10 @@ Kickstarter project for ReactJS applications.
 
 ### Summary
 1. Overview
-2. Folder structure
-3. Project commands
-4. How to contribute 
+2. Installation
+3. Folder structure
+4. Project commands
+5. How to contribute 
 
 
 
@@ -18,9 +19,14 @@ Kickstarter project for ReactJS applications.
 This project could be used as a default scaffolding for React projects. It has some good practices for creating projects, such as eslint and precommit validation. For example, you won't be to perform a "git commit" if there is an error syntax in your code.
 
 
+### 2. Installation
+---
+Just run this command:
+```
+    $ git clone https://github.com/whiteprompt/reactjs-scaffolding.git && cd reactjs-scaffolding && rm -rf .git && npm install && cd ..
+```
 
-
-### 2. Folder structure
+### 3. Folder structure
 ---
 ```
 .
@@ -43,7 +49,7 @@ This project could be used as a default scaffolding for React projects. It has s
 
 
 
-### 3. Project commands
+### 4. Project commands
 ---
 
 Running application (**Default port: 8080**)
@@ -58,7 +64,7 @@ Build for production (it will create a *dist* folder with bundled assets)
 
 
 
-### 4. How to contribute
+### 5. How to contribute
 ---
 
 Contributions are welcome, so if you would like to contribute to the project, please submit a pull request in order to pass through a code review. 

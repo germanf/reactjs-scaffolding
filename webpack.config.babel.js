@@ -45,6 +45,9 @@ plugins.push(
 
 module.exports = {
   devtool: 'source-map', // to see the actual es6 code in chrome dev tools
+  devServer: {
+    historyApiFallback: true
+  },
   entry,
   output: {
     path: path.join(__dirname, 'dist'),

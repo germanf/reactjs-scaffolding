@@ -1,9 +1,11 @@
 // This line is for eslint to ignore not found variable error:
 /* global document, DEVELOPMENT */
 import React from 'react';
-import { browserHistory, Router, Route, IndexRoute } from 'react-router';
-import ReactDOM from 'react-dom';
 
+import { BrowserHistory, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import ReactDOM from 'react-dom';
+  
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -14,11 +16,11 @@ import NotFound from './components/NotFound';
 // React render
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={Index} >
-        <IndexRoute component={Index} />
-        <Route path="*" component={NotFound} />
-      </Route>
+    <Router history={BrowserHistory}>
+      <Switch> 
+        <Route exact path="/" component={Index} />
+        <Route component={NotFound} />
+      </Switch>
     </Router>
   </Provider>,
   document.getElementById('app'),

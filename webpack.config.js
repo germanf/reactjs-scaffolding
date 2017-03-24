@@ -1,9 +1,9 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
-import path from 'path';
-import webpack from 'webpack';
-import OpenBrowserPlugin from 'open-browser-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 const DEV_SERVER_URL = 'http://localhost:8080';
@@ -21,9 +21,15 @@ const entry = PRODUCTION
     }
     : {
       app: [
+        'babel-polyfill',
+        'react-hot-loader/patch',
+        'webpack-dev-server/client?http://localhost:8080',
         './src/Bootstrap.jsx'
       ],
-      vendor: ['react', 'redux'],
+      vendor: [
+        'react',
+        'redux'
+      ],
     };
 
 
@@ -45,12 +51,16 @@ plugins.push(
       disable: false,
       allChunks: true,
     }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
 );
 
 module.exports = {
-  devtool: 'source-map', // to see the actual es6 code in chrome dev tools
+  devtool: 'eval',
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    contentBase: './',
+    hot: true
   },
   entry,
   output: {

@@ -15,10 +15,14 @@ console.log('Webpack is building for: ', PRODUCTION ? 'PRODUCTION' : 'DEVELOPMEN
 
 const entry = PRODUCTION
     ? {
-      app: ['./src/App.jsx'],
+      app: [
+        './src/Bootstrap.jsx'
+      ],
     }
     : {
-      app: ['./src/App.jsx'],
+      app: [
+        './src/Bootstrap.jsx'
+      ],
       vendor: ['react', 'redux'],
     };
 
@@ -26,7 +30,7 @@ const entry = PRODUCTION
 const plugins = PRODUCTION
     ? [new webpack.optimize.UglifyJsPlugin()]
     : [
-      new OpenBrowserPlugin({ url: DEV_SERVER_URL }),
+      //new OpenBrowserPlugin({ url: DEV_SERVER_URL }),
       new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: '[name].bundle-[hash].js' }),
     ];
 

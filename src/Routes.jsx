@@ -11,6 +11,10 @@ const routes = [
   {
     path: '/sign-in',
     component: SignIn
+  },
+  {
+    path: '',
+    component: NotFound
   }
 ];
 

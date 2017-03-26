@@ -2,8 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Link
+  Switch
 } from 'react-router-dom';
 import routes from './Routes';
 
@@ -14,13 +13,13 @@ const Layout = () => (
         <header>This is my Header</header>
 
         <Switch>
-          {routes.map((route, index) => (
+          {routes.map(route => (
             <Route
-              key={index}
+              key={route.path}
               path={route.path}
               exact={route.exact}
               render={() => (
-                <div className='content'>
+                <div className="content">
                   <route.component />
                 </div>
               )}

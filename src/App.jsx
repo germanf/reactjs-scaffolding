@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
 import Layout from './Layout';
 
 // Redux
-import { Provider } from 'react-redux';
 import store from './redux/store';
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Layout />
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <Layout onClick={this.lala} />
+  </Provider>
+);
 
 export default App;

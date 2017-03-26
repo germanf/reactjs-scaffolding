@@ -50,26 +50,26 @@ const Test = class Test extends Component {
 function mapStateToProps(state) {
   return {
     items: state.test.items,
-    loading: state.test.loading,
+    loading: state.test.loading
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchTest: bindActionCreators(fetchTest, dispatch),
+    fetchTest: bindActionCreators(fetchTest, dispatch)
   };
 }
 
 Test.defaultProps = {
   fetchTest: () => {},
   loading: false,
-  items: [],
+  items: []
 };
 
 Test.propTypes = {
   fetchTest: React.PropTypes.func,
   loading: React.PropTypes.bool,
-  items: React.PropTypes.array,
+  items: React.PropTypes.arrayOf
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);

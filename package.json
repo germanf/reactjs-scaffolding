@@ -11,7 +11,7 @@
   },
   "pre-commit": [
     "precommit-msg",
-    "eslint"
+    "lint"
   ],
   "author": "",
   "license": "ISC",

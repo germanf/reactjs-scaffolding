@@ -1,20 +1,29 @@
-import Home from './components/Home';
-import SignIn from './components/SignIn';
-import NotFound from './components/NotFound/';
+import HomePage from './components/HomePage';
+import SignInPage from './components/SignInPage';
+import NotFoundPage from './components/NotFoundPage';
+import UserProfilePage from './components/UserProfilePage';
 
 const routes = [
   {
     path: '/',
     exact: true,
-    component: Home
+    secure: false,
+    component: HomePage
   },
   {
-    path: '/sign-in',
-    component: SignIn
+    path: '/login',
+    secure: false,
+    component: SignInPage
+  },
+  {
+    path: '/user',
+    secure: true,
+    component: UserProfilePage
   },
   {
     path: '',
-    component: NotFound
+    secure: false,
+    component: NotFoundPage
   }
 ];
 

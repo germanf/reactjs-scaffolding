@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const fakeApi = process.env.FAKE_API === 'true';
 
 const DEV_SERVER_URL = 'http://localhost:8080';
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -42,7 +43,10 @@ plugins.push(
     new HtmlWebpackPlugin({ template: './index.html' }),
     new webpack.DefinePlugin({
       DEVELOPMENT: JSON.stringify(DEVELOPMENT),
-      PRODUCTION: JSON.stringify(PRODUCTION)
+      PRODUCTION: JSON.stringify(PRODUCTION),
+      'process.env': {
+        FAKE_API: JSON.stringify(fakeApi)
+      }
     }),
     new ExtractTextPlugin({
       filename: 'bundle-[hash].css',
@@ -115,6 +119,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css', '.scss'],
 
     modules: [
+      path.resolve('./src'),
       'node_modules'
     ],
 

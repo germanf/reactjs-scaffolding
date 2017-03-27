@@ -1,32 +1,38 @@
-// This line is for eslint to ignore not found variable error:
-/* global document, DEVELOPMENT */
-import React from 'react';
-import { browserHistory, Router, Route, IndexRoute } from 'react-router';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as userActions from './redux/modules/user';
+import Layout from './layout';
+import * as authActions from './redux/modules/authentication';
 
-// Redux
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { userIsAuthenticated } from './api/auth_token';
 
-import Index from './components/Index';
-import NotFound from './components/NotFound';
-
-// React render
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={Index} >
-        <IndexRoute component={Index} />
-        <Route path="*" component={NotFound} />
-      </Route>
-    </Router>
-  </Provider>,
-  document.getElementById('app'),
-);
-
-// This will be injected in the build module.
-if (DEVELOPMENT) {
-  if (module.hot) {
-    module.hot.accept();
+class App extends Component {
+  componentDidMount() {
+    if (userIsAuthenticated()) {
+      this.props.getUser();
+    }
+  }
+  render() {
+    return (
+      <Layout
+        handleLogOut={this.props.logOut}
+        userLogged={this.props.userLogged}
+      />
+    );
   }
 }
+
+App.propTypes = {
+  logOut: React.PropTypes.func.isRequired,
+  getUser: React.PropTypes.func.isRequired,
+  userLogged: React.PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+  userLogged: state.user.userLogged
+});
+
+export default connect(mapStateToProps, {
+  logOut: authActions.logOut,
+  getUser: userActions.getUser
+})(App);

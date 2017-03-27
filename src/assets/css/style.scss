@@ -1,12 +1,14 @@
-@font-face {
+:global {
+  @font-face {
+      font-family: 'Roboto';
+      src: url('../fonts/Roboto/Roboto-Regular.ttf');
+  }
+
+  body {
     font-family: 'Roboto';
-    src: url('../fonts/Roboto/Roboto-Regular.ttf');
-}
+    margin: 0;
+    padding: 0;
+    background-color: #f9f5f5;
+  }
 
-body {
-  font-family: 'Roboto';
-}
-
-.logo {
-  height: 80px;
 }

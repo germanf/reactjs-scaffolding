@@ -1,5 +1,6 @@
 import HomePage from './components/HomePage';
 import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
 import NotFoundPage from './components/NotFoundPage';
 import UserProfilePage from './components/UserProfilePage';
 
@@ -11,9 +12,14 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/login',
+    path: '/sign-in',
     secure: false,
     component: SignInPage
+  },
+  {
+    path: '/sign-up',
+    secure: false,
+    component: SignUpPage
   },
   {
     path: '/user',

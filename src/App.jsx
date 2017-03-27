@@ -1,14 +1,38 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import Layout from './Layout';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as userActions from './redux/modules/user';
+import Layout from './layout';
+import * as authActions from './redux/modules/authentication';
 
-// Redux
-import store from './redux/store';
+import { userIsAuthenticated } from './api/auth_token';
 
-const App = () => (
-  <Provider store={store}>
-    <Layout onClick={this.lala} />
-  </Provider>
-);
+class App extends Component {
+  componentDidMount() {
+    if (userIsAuthenticated()) {
+      this.props.getUser();
+    }
+  }
+  render() {
+    return (
+      <Layout
+        handleLogOut={this.props.logOut}
+        userLogged={this.props.userLogged}
+      />
+    );
+  }
+}
 
-export default App;
+App.propTypes = {
+  logOut: React.PropTypes.func.isRequired,
+  getUser: React.PropTypes.func.isRequired,
+  userLogged: React.PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+  userLogged: state.user.userLogged
+});
+
+export default connect(mapStateToProps, {
+  logOut: authActions.logOut,
+  getUser: userActions.getUser
+})(App);

@@ -7,6 +7,7 @@
     "lint": "eslint src/** --fix",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
+    "start:fake-api": "FAKE_API=true ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
     "build": "npm run eslint && rimraf dist && NODE_ENV=production webpack"
   },
   "pre-commit": [
@@ -60,7 +61,8 @@
     "react-tap-event-plugin": "2.0.1",
     "redux": "3.6.0",
     "redux-logger": "2.8.1",
-    "redux-promise-middleware": "4.2.0",
+    "redux-promise-middleware": "^4.2.0",
+    "redux-reset": "^0.3.0",
     "redux-thunk": "2.2.0",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.1.0-beta.9"

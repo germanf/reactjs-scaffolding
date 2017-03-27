@@ -1,6 +1,6 @@
 {
   "name": "reactjs-scaffolding",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Kickstarter project for ReactJS applications",
   "main": "dev-server.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "precommit-msg",
     "lint"
   ],
-  "author": "",
+  "author": "Damian Aruj <damian.aruj@whiteprompt.com>",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "6.23.0",

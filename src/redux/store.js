@@ -5,9 +5,10 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import reduxReset from 'redux-reset';
 
+import error from './middlewares/error';
 import reducers from './modules/reducers';
 
-const middleware = applyMiddleware(promise(), thunk, logger());
+const middleware = applyMiddleware(error, promise(), thunk, logger());
 
 const enHanceCreateStore = compose(
     middleware,

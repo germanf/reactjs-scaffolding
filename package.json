@@ -6,14 +6,10 @@
   "scripts": {
     "lint": "eslint src/** --fix",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
-    "start:fake-api": "FAKE_API=true ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
+    "start": "NODE_ENV=development ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
+    "start:fake-api": "NODE_ENV=development FAKE_API=true ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
     "build": "npm run eslint && rimraf dist && NODE_ENV=production webpack"
   },
-  "pre-commit": [
-    "precommit-msg",
-    "lint"
-  ],
   "author": "Damian Aruj <damian.aruj@whiteprompt.com>",
   "license": "ISC",
   "devDependencies": {
@@ -54,6 +50,7 @@
     "lodash-es": "4.17.4",
     "material-ui": "0.16.7",
     "react": "15.4.2",
+    "react-awesome-form-validator": "^1.3.9",
     "react-dom": "15.4.2",
     "react-hot-loader": "3.0.0-beta.6",
     "react-redux": "5.0.2",
@@ -64,6 +61,7 @@
     "redux-promise-middleware": "^4.2.0",
     "redux-reset": "^0.3.0",
     "redux-thunk": "2.2.0",
+    "validator": "^7.0.0",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.1.0-beta.9"
   }

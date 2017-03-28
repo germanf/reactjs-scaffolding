@@ -1,7 +1,8 @@
-import axios from 'axios';
+import Api from '../../utils/request';
 
 const AuthenticationApiCalls = {
-  login: ({ email, password }) => axios.post('/api/authenticate', { email, password })
+  login: ({ email, password }) => Api.post('/authenticate', { email, password }, true),
+  signUp: ({ name, email, password }) => Api.post('/authenticate', { name, email, password }, true)
 };
 
 export default AuthenticationApiCalls;

@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { getToken } from '../auth_token';
+import Api from '../../utils/request';
 
 const UserApiCalls = {
-  getUser: () => axios.get('/api/user/me', { getToken })
+  getUser: () => Api.get('/users', true)
 };
 
 export default UserApiCalls;

@@ -1,14 +1,33 @@
 import React from 'react';
 import Form from 'react-awesome-form-validator';
-import { isEmail } from 'validator';
+import { isAlpha, isEmail } from 'validator';
 
-import styles from './SignInPage.scss';
+import styles from './SignUpPage.scss';
 
-const SignInPage = ({ handleLogin }) => (
+const SignUpPage = ({ handleSignUp }) => (
   <div className={styles.wrapper}>
-    <h1>Sign</h1>
+    <h1>Complete the following to get started!</h1>
+    <Form onSubmit={formData => handleSignUp(formData)}>
+      <Form.Input
+        name="name"
+        placeHolder=""
+        type="text"
+        label="First & Last Name"
+        fieldClassName="form-field"
+        validate={(value) => {
+          let valid = true;
+          let errorMessage = '';
+          if (!value.length) {
+            valid = false;
+            errorMessage = 'This field is required';
+          } else if (!isAlpha(value.replace(/\s/g, ''))) {
+            valid = false;
+            errorMessage = 'You must enter only characters';
+          }
+          return { valid, errorMessage };
+        }}
+      />
 
-    <Form onSubmit={formData => handleLogin(formData)} >
       <Form.Input
         name="email"
         placeHolder=""
@@ -51,7 +70,7 @@ const SignInPage = ({ handleLogin }) => (
 
       <Form.CustomSubmitButton>
         <div className={styles.submitWrapper}>
-          <a className="button submit">Sign In</a>
+          <a className="button submit">Sign Up</a>
         </div>
       </Form.CustomSubmitButton>
 
@@ -59,9 +78,8 @@ const SignInPage = ({ handleLogin }) => (
   </div>
 );
 
-
-SignInPage.propTypes = {
-  handleLogin: React.PropTypes.func.isRequired
+SignUpPage.propTypes = {
+  handleSignUp: React.PropTypes.func.isRequired
 };
 
-export default SignInPage;
+export default SignUpPage;

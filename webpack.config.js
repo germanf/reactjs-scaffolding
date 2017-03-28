@@ -42,9 +42,9 @@ const plugins = PRODUCTION
 plugins.push(
     new HtmlWebpackPlugin({ template: './index.html' }),
     new webpack.DefinePlugin({
-      DEVELOPMENT: JSON.stringify(DEVELOPMENT),
-      PRODUCTION: JSON.stringify(PRODUCTION),
       'process.env': {
+        DEVELOPMENT: JSON.stringify(DEVELOPMENT),
+        PRODUCTION: JSON.stringify(PRODUCTION),
         FAKE_API: JSON.stringify(fakeApi)
       }
     }),

@@ -43,6 +43,7 @@ const Layout = ({ handleLogOut, userLogged }) => (
                   <ul className={styles.content}>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/login">SignIn</Link></li>
+                    <li><Link to="/signup">SignUp</Link></li>
                   </ul>
                 ))}
               />

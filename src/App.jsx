@@ -9,6 +9,7 @@ import { userIsAuthenticated } from './api/auth_token';
 class App extends Component {
   componentDidMount() {
     if (userIsAuthenticated()) {
+      this.props.setUserLogged();
       this.props.getUser();
     }
   }
@@ -25,7 +26,8 @@ class App extends Component {
 App.propTypes = {
   logOut: React.PropTypes.func.isRequired,
   getUser: React.PropTypes.func.isRequired,
-  userLogged: React.PropTypes.bool.isRequired
+  userLogged: React.PropTypes.bool.isRequired,
+  setUserLogged: React.PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -34,5 +36,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   logOut: authActions.logOut,
-  getUser: userActions.getUser
+  getUser: userActions.getUser,
+  setUserLogged: userActions.setUserLogged
 })(App);

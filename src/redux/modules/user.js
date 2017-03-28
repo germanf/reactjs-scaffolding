@@ -15,6 +15,7 @@ const initialState = {
 // Actions
 const SET_USER_DATA = 'app/user/SET_USER_DATA';
 const GET_USER = 'app/user/GET_USER';
+const SET_USER_LOGGED = 'app/user/SET_USER_LOGGED';
 
 // Reducer
 const UserReducer = (state = initialState, action = {}) => {
@@ -23,6 +24,11 @@ const UserReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         data: action.payload.data,
+        userLogged: true
+      };
+    case SET_USER_LOGGED:
+      return {
+        ...state,
         userLogged: true
       };
     default: return state;
@@ -47,3 +53,7 @@ export const getUser = () => dispatch =>
   })
   .then(response => dispatch(setUserData(response.value.data)))
   .catch(response => response.error);
+
+export const setUserLogged = () => ({
+  type: SET_USER_LOGGED
+});

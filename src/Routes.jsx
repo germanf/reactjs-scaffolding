@@ -12,7 +12,7 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/sign-in',
+    path: '/login',
     secure: false,
     component: SignInPage
   },

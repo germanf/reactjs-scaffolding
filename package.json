@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint src/** --fix",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
-    "start:fake-api": "FAKE_API=true ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
+    "start": "NODE_ENV=development ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
+    "start:fake-api": "NODE_ENV=development FAKE_API=true ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
     "build": "npm run eslint && rimraf dist && NODE_ENV=production webpack"
   },
   "author": "Damian Aruj <damian.aruj@whiteprompt.com>",

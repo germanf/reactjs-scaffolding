@@ -1,3 +1,5 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 import isPromise from '../../utils/is-promise';
 import oneOfType from '../../utils/one-of-type';
 import * as errorTypes from '../../constants/error';
@@ -35,9 +37,8 @@ export default function globalErrorMiddleware() {
      * the promise middleware, but adds a `catch`.
      */
     if (oneOfType(action.type, types)) {
-
       // Dispatch initial pending promise, but catch any errors
-      return next(action).catch(error => {
+      return next(action).catch((error) => {
         if (process.env.DEVELOPMENT) {
           console.warn(`${action.type} caught at middleware with reason: ${JSON.stringify(error.message)}.`);
         }

@@ -10,6 +10,10 @@
     "start:fake-api": "NODE_ENV=development FAKE_API=true ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8080 --host 0.0.0.0 --config webpack.config.js --progress",
     "build": "npm run eslint && rimraf dist && NODE_ENV=production webpack"
   },
+  "pre-commit": [
+    "precommit-msg",
+    "lint"
+  ],
   "author": "Damian Aruj <damian.aruj@whiteprompt.com>",
   "license": "ISC",
   "devDependencies": {

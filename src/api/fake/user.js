@@ -6,9 +6,6 @@ const UserApiCalls = {
     if (!getToken()) {
       // Get error when the token is not saved in the localStorage
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        response: {
-          status: 401
-        },
         error: {
           message: 'You are not logged in'
         }

@@ -1,18 +1,20 @@
 import React from 'react';
 import Form from 'react-awesome-form-validator';
-import { isAlpha, isEmail } from 'validator';
+import { isEmail } from 'validator';
+
+import styles from './SignInPage.scss';
 
 const SignInPage = ({ handleLogin }) => (
-  <div>
+  <div className={styles.wrapper}>
     <h1>Sign</h1>
 
-    <Form onSubmit={(formData) => handleLogin(formData)} >
+    <Form onSubmit={formData => handleLogin(formData)} >
       <Form.Input
-        name='email'
-        placeHolder=''
-        label='Email Address'
-        type='email'
-        value=''
+        name="email"
+        placeHolder=""
+        label="Email Address"
+        type="email"
+        value=""
         fieldClassName="form-field"
         startValidatingWhenIsPristine
         validate={(value) => {
@@ -30,10 +32,10 @@ const SignInPage = ({ handleLogin }) => (
       />
 
       <Form.Input
-        name='password'
-        placeHolder=''
-        type='password'
-        label='Password'
+        name="password"
+        placeHolder=""
+        type="password"
+        label="Password"
         fieldClassName="form-field"
         startValidatingWhenIsPristine
         validate={(value) => {
@@ -48,7 +50,7 @@ const SignInPage = ({ handleLogin }) => (
       />
 
       <Form.CustomSubmitButton>
-        <div className="form-field form-submit">
+        <div className={styles.submitWrapper}>
           <a className="button submit">Sign In</a>
         </div>
       </Form.CustomSubmitButton>

@@ -3,14 +3,22 @@ import { connect } from 'react-redux';
 import * as authActions from '../../redux/modules/authentication';
 import SignUpPage from './SignUpPage';
 
-const SignUpPageContainer = () => (
-  <SignUpPage />
+const SignUpPageContainer = ({ signUp }, { router }) => (
+  <SignUpPage
+    handleSignUp={(data) => {
+      signUp(data)
+        .then(() => router.history.push('/'));
+    }}
+  />
 );
 
-/*
-SignInPageContainer.propTypes = {
-  login: React.PropTypes.func.isRequired
+SignUpPageContainer.contextTypes = {
+  router: React.PropTypes.shape()
 };
-*/
 
-export default connect(null, { login: authActions.login })(SignUpPageContainer);
+SignUpPageContainer.propTypes = {
+  signUp: React.PropTypes.func.isRequired
+};
+
+
+export default connect(null, { signUp: authActions.signUp })(SignUpPageContainer);

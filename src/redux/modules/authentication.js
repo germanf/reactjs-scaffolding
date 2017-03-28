@@ -7,13 +7,18 @@ const { AuthenticationApiCalls } = Api;
 // Initial State
 const initialState = {
   signIn: {
-    loggingIn: false,
+    loading: false,
+    error: null
+  },
+  signUp: {
+    loading: false,
     error: null
   }
 };
 
 // Actions
 const LOGIN = 'app/authentication/LOGIN';
+const SIGNUP = 'app/authentication/SIGNUP';
 
 // Reducer
 const AuthenticationReducer = (state = initialState, action = {}) => {
@@ -24,14 +29,32 @@ const AuthenticationReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         signIn: {
-          loggingIn: false
+          loading: false
         }
       };
     case `${LOGIN}_REJECTED`:
       return {
         ...state,
         signIn: {
-          loggingIn: false,
+          loading: false,
+          error: action.payload.error.message
+        }
+      };
+
+    case `${SIGNUP}_PENDING`:
+      return { ...state, signIn: { loggingIn: true } };
+    case `${SIGNUP}_FULFILLED`:
+      return {
+        ...state,
+        signUp: {
+          loading: false
+        }
+      };
+    case `${SIGNUP}_REJECTED`:
+      return {
+        ...state,
+        signUp: {
+          loading: false,
           error: action.payload.error.message
         }
       };
@@ -67,3 +90,11 @@ export const logOut = () => (dispatch) => {
   dispatch({ type: 'RESET' });
 };
 
+export const signUp = ({
+  name,
+  email,
+  password
+}) => ({
+  type: SIGNUP,
+  payload: AuthenticationApiCalls.signUp({ name, email, password })
+});

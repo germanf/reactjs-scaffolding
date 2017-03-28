@@ -6,8 +6,7 @@ import SignUpPage from './SignUpPage';
 const SignUpPageContainer = ({ signUp }, { router }) => (
   <SignUpPage
     handleSignUp={(data) => {
-      signUp(data)
-        .then(() => router.history.push('/'));
+      signUp(data).then(() => router.history.push('/'));
     }}
   />
 );

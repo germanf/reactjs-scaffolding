@@ -1,3 +1,5 @@
+/* eslint no-self-compare: 0 */
+
 const is = (x, y) => {
   // SameValue algorithm
   // Steps 1-5, 7-10
@@ -26,6 +28,6 @@ const oneOf = (actual, expected) => {
   }
 
   return true;
-}
+};
 
 export default oneOf;

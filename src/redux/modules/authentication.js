@@ -1,4 +1,4 @@
-import { setUserData } from './user';
+import { userActions } from './user';
 import Api from '../../api';
 import { storeToken, clearToken } from '../../api/auth_token';
 
@@ -63,9 +63,15 @@ const AuthenticationReducer = (state = initialState, action = {}) => {
 };
 
 export default AuthenticationReducer;
-// Action Creators
 
-export const login = ({
+
+// **** Action Creators ***** //
+
+/**
+ * Login Action
+ * @param {Object} containing { email, password }
+ */
+const login = ({
   email,
   password
 }) => dispatch =>
@@ -81,16 +87,23 @@ export const login = ({
     // store token in localStorage
     storeToken(token);
     // set User Data
-    dispatch(setUserData(userData));
+    dispatch(userActions.setUserData(userData));
   })
   .catch(response => response.error);
 
-export const logOut = () => (dispatch) => {
+/**
+ * LogOut Action
+ */
+const logOut = () => (dispatch) => {
   clearToken();
   dispatch({ type: 'RESET' });
 };
 
-export const signUp = ({
+/**
+ * SignUp Action
+ * @param {Object} containing { name, email, password }
+ */
+const signUp = ({
   name,
   email,
   password
@@ -98,3 +111,9 @@ export const signUp = ({
   type: SIGNUP,
   payload: AuthenticationApiCalls.signUp({ name, email, password })
 });
+
+export const authenticationActions = {
+  login,
+  signUp,
+  logOut
+};

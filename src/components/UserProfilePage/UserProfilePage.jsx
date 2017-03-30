@@ -1,4 +1,5 @@
 import React from 'react';
+import { userTypes } from '../../types';
 
 const UserProfilePage = ({ user }) => (
   <div>
@@ -18,11 +19,7 @@ const UserProfilePage = ({ user }) => (
 );
 
 UserProfilePage.propTypes = {
-  user: React.PropTypes.shape({
-    email: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    lastName: React.PropTypes.string.isRequired
-  }).isRequired
+  user: userTypes.user.isRequired
 };
 
 export default UserProfilePage;

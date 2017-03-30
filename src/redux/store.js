@@ -6,7 +6,7 @@ import promise from 'redux-promise-middleware';
 import reduxReset from 'redux-reset';
 
 import error from './middlewares/error';
-import reducers from './modules/reducers';
+import reducers from './reducers';
 
 const middleware = applyMiddleware(error, promise(), thunk, logger());
 

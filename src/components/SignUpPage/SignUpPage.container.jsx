@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as authActions from '../../redux/modules/authentication';
+import register from '../../utils/redux-register';
 import SignUpPage from './SignUpPage';
 
 const SignUpPageContainer = ({ signUp }, { router }) => (
@@ -19,5 +18,8 @@ SignUpPageContainer.propTypes = {
   signUp: React.PropTypes.func.isRequired
 };
 
-
-export default connect(null, { signUp: authActions.signUp })(SignUpPageContainer);
+export default register(
+  [],
+  ['authentication.signUp'],
+  SignUpPageContainer
+);

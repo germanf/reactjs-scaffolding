@@ -1,21 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import register from '../../utils/redux-register';
 import UserProfilePage from './UserProfilePage';
+import { userTypes } from '../../types';
 
 const UserProfilePageContainer = ({ user }) => (
   <UserProfilePage user={user} />
 );
 
 UserProfilePageContainer.propTypes = {
-  user: React.PropTypes.shape({
-    email: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    lastName: React.PropTypes.string.isRequired
-  }).isRequired
+  user: userTypes.user.isRequired
 };
 
-const mapStateToProps = state => ({
-  user: state.user.data
-});
 
-export default connect(mapStateToProps, {})(UserProfilePageContainer);
+export default register(
+  ['userSelector'],
+  [],
+  UserProfilePageContainer
+);

@@ -15,7 +15,7 @@ import register from '../utils/redux-register';
 import '../assets/css/style.scss';
 import styles from './Layout.scss';
 
-const Layout = ({ logOut, userLogged, loading, history }) => (
+const Layout = ({ handleLogOut, userLogged, loading, history }) => (
   <ConnectedRouter history={history}>
     <div className="root">
       <div className="wrap">
@@ -30,7 +30,7 @@ const Layout = ({ logOut, userLogged, loading, history }) => (
                   href="/logout"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    logOut();
+                    handleLogOut();
                   }}
                 >LogOut</a>
               </li>
@@ -92,7 +92,7 @@ const Layout = ({ logOut, userLogged, loading, history }) => (
 );
 
 Layout.propTypes = {
-  logOut: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   userLogged: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   history: PropTypes.shape({}).isRequired
@@ -100,6 +100,6 @@ Layout.propTypes = {
 
 export default register(
   ['userSelector', 'layoutSelector'],
-  ['user.getUser', 'authentication.logOut'],
+  ['authentication.handleLogOut'],
   Layout
 );

@@ -10,11 +10,17 @@ const { AuthenticationApiCalls } = Api;
 const initialState = {
   signIn: {
     loading: false,
-    error: null
+    error: {
+      message: '',
+      errors: {}
+    }
   },
   signUp: {
     loading: false,
-    error: null
+    error: {
+      message: '',
+      errors: {}
+    }
   }
 };
 
@@ -31,7 +37,11 @@ const AuthenticationReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         signIn: {
-          loading: false
+          loading: false,
+          error: {
+            message: '',
+            errors: {}
+          }
         }
       };
     case `${LOGIN}_REJECTED`:
@@ -39,7 +49,7 @@ const AuthenticationReducer = (state = initialState, action = {}) => {
         ...state,
         signIn: {
           loading: false,
-          error: action.payload.error.message
+          error: action.payload.error
         }
       };
 
@@ -49,7 +59,11 @@ const AuthenticationReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         signUp: {
-          loading: false
+          loading: false,
+          error: {
+            message: '',
+            errors: {}
+          }
         }
       };
     case `${SIGNUP}_REJECTED`:
@@ -57,7 +71,7 @@ const AuthenticationReducer = (state = initialState, action = {}) => {
         ...state,
         signUp: {
           loading: false,
-          error: action.payload.error.message
+          error: action.payload.error
         }
       };
     default: return state;
@@ -90,9 +104,9 @@ const login = ({
     // store token in localStorage
     storeToken(token);
     // set User Data
-    dispatch(userActions.setUserData(userData));
+    dispatch(userActions.handleSetUserData(userData));
     // set user logged
-    dispatch(userActions.setUserLogged());
+    dispatch(userActions.handleSetUserLogged());
     // Done!
     dispatch(layoutActions.showLoading(false));
   })
@@ -136,7 +150,7 @@ const signUp = ({
 };
 
 export const authenticationActions = {
-  login,
-  signUp,
-  logOut
+  handleLogin: login,
+  handleSignUp: signUp,
+  handleLogOut: logOut
 };

@@ -4,6 +4,13 @@ const { UserApiCalls } = Api;
 
 // Initial State
 const initialState = {
+  getUser: {
+    loading: false,
+    error: {
+      message: '',
+      errors: {}
+    }
+  },
   data: {
     email: '',
     name: '',
@@ -20,6 +27,27 @@ const SET_USER_LOGGED = 'app/user/SET_USER_LOGGED';
 // Reducer
 const UserReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case `${GET_USER}_PENDING`:
+      return { ...state, getUser: { loading: true } };
+    case `${GET_USER}_FULFILLED`:
+      return {
+        ...state,
+        getUser: {
+          loading: false,
+          error: {
+            message: '',
+            errors: {}
+          }
+        }
+      };
+    case `${GET_USER}_REJECTED`:
+      return {
+        ...state,
+        getUser: {
+          loading: false,
+          error: action.payload.error
+        }
+      };
     case SET_USER_DATA:
       return {
         ...state,
@@ -71,7 +99,7 @@ const setUserLogged = () => ({
 
 
 export const userActions = {
-  setUserData,
-  getUser,
-  setUserLogged
+  handleSetUserData: setUserData,
+  handleGetUser: getUser,
+  handleSetUserLogged: setUserLogged
 };

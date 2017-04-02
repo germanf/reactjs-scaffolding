@@ -2,17 +2,17 @@ import React from 'react';
 import register from '../../utils/redux-register';
 import SignInPage from './SignInPage';
 
-const SignInPageContainer = ({ login }) => (
-  <SignInPage handleLogin={login} />
+const SignInPageContainer = ({ handleLogin }) => (
+  <SignInPage handleLogin={handleLogin} />
 );
 
 SignInPageContainer.propTypes = {
-  login: React.PropTypes.func.isRequired
+  handleLogin: React.PropTypes.func.isRequired
 };
 
 export default register(
   [],
-  ['authentication.login'],
+  ['authentication.handleLogin'],
   SignInPageContainer
 );
 

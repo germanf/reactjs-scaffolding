@@ -1,18 +1,12 @@
 const AuthenticationApiCalls = {
   login: ({ email, password }) => {
     let promise;
-    if (email === 'damian@gmail.com') {
-      // Get error when the email is on the database
-      promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        error: {
-          message: 'The email already exist in our database'
-        }
-      }), 3000));
-    } else if (password === '12345') {
+    if (email === 'aruj.damian@gmail.com' || password === '12345') {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
         error: {
-          message: 'Password too short'
+          message: 'The emial or password is incorrect',
+          errors: {}
         }
       }), 3000));
     } else {
@@ -30,25 +24,34 @@ const AuthenticationApiCalls = {
   },
   signUp: ({ name, email, password }) => {
     let promise;
-    if (email === 'damian@gmail.com') {
+    if (email === 'aruj.damian@gmail.com') {
       // Get error when the email is on the database
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
         error: {
-          message: 'The email already exist in our database'
+          message: 'We found some errors',
+          errors: {
+            email: 'Email already exists'
+          }
         }
       }), 3000));
     } else if (password.length <= 4) {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
         error: {
-          message: 'Password too short'
+          message: 'We found some errors',
+          errors: {
+            password: 'Password to short'
+          }
         }
       }), 3000));
     } else if (name === 'Sebastian Azagra') {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
         error: {
-          message: 'I don\'t like that name'
+          message: 'We found some errors',
+          errors: {
+            name: 'Name taken'
+          }
         }
       }), 3000));
     } else {

@@ -57,7 +57,7 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
                 />
               ) : (
                 <div className={styles.content}>
-                  <route.component />
+                  <route.component {...props} />
                 </div>
               ))}
             />
@@ -69,7 +69,7 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
               exact={route.exact}
               render={props => ((!route.secure || (route.secure && userIsAuthenticated())) ? (
                 <div className={styles.content}>
-                  <route.component />
+                  <route.component {...props} />
                 </div>
               ) : (
                 <Redirect

@@ -140,7 +140,7 @@ const signUp = ({
   })
   .then((response) => {
     dispatch(layoutActions.showLoading(false));
-    dispatch(push('/'));
+    dispatch(push('/signup/success'));
     return response;
   })
   .catch((response) => {

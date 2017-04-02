@@ -23,8 +23,7 @@ const UserReducer = (state = initialState, action = {}) => {
     case SET_USER_DATA:
       return {
         ...state,
-        data: action.payload.data,
-        userLogged: true
+        data: action.payload.data
       };
     case SET_USER_LOGGED:
       return {

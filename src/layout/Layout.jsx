@@ -7,7 +7,7 @@ import {
   Link
 } from 'react-router-dom';
 import routes from '../Routes';
-
+import LoadingSpinner from '../components/shared/LoadingSpinner';
 import { userIsAuthenticated } from '../api/auth_token';
 
 import '../assets/css/style.scss';
@@ -19,36 +19,27 @@ const Layout = ({ handleLogOut, userLogged }) => (
       <div className="wrap">
         <header className={styles.header}>WhitePrompt Scaffolding 2.0</header>
         <nav className={styles.nav}>
-          <Switch>
-            {routes.map(route => (
-              <Route
-                key={route.path}
-                path={route.path}
-                exact={route.exact}
-                render={() => (userIsAuthenticated() || userLogged ? (
-                  <ul className={styles.content}>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/user">User</Link></li>
-                    <li>
-                      <a
-                        href="/logout"
-                        onClick={(evt) => {
-                          evt.preventDefault();
-                          handleLogOut();
-                        }}
-                      >LogOut</a>
-                    </li>
-                  </ul>
-                ) : (
-                  <ul className={styles.content}>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/login">SignIn</Link></li>
-                    <li><Link to="/signup">SignUp</Link></li>
-                  </ul>
-                ))}
-              />
-            ))}
-          </Switch>
+        { userLogged && (
+          <ul className={styles.content}>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/user">User</Link></li>
+            <li>
+              <a
+                href="/logout"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  handleLogOut();
+                }}
+              >LogOut</a>
+            </li>
+          </ul>
+        ) || (
+          <ul className={styles.content}>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/login">SignIn</Link></li>
+            <li><Link to="/signup">SignUp</Link></li>
+          </ul>
+        ) }
         </nav>
         <Switch>
           {routes.filter(r => r.path === '/login').map(route => (
@@ -93,7 +84,7 @@ const Layout = ({ handleLogOut, userLogged }) => (
         <footer className={styles.footer}>WhitePrompt.com</footer>
 
       </div>
-
+      <LoadingSpinner active={false} />
     </div>
   </Router>
 );

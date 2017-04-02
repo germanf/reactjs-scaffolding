@@ -4,12 +4,9 @@ import Layout from './layout';
 import { userTypes } from './types';
 import register from './utils/redux-register';
 
-import { userIsAuthenticated } from './api/auth_token';
-
 class App extends Component {
   componentDidMount() {
-    if (userIsAuthenticated()) {
-      this.props.setUserLogged();
+    if (this.props.userLogged) {
       this.props.getUser();
     }
   }
@@ -26,12 +23,11 @@ class App extends Component {
 App.propTypes = {
   logOut: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
-  userLogged: userTypes.userLogged.isRequired,
-  setUserLogged: PropTypes.func.isRequired
+  userLogged: userTypes.userLogged.isRequired
 };
 
 export default register(
   ['userSelector'],
-  ['user.getUser', 'user.setUserLogged', 'authentication.logOut'],
+  ['user.getUser', 'authentication.logOut'],
   App
 );

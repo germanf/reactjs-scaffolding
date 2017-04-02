@@ -88,6 +88,8 @@ const login = ({
     storeToken(token);
     // set User Data
     dispatch(userActions.setUserData(userData));
+    // set user logged
+    dispatch(userActions.setUserLogged());
   })
   .catch(response => response.error);
 

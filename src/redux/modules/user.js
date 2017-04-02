@@ -36,15 +36,24 @@ const UserReducer = (state = initialState, action = {}) => {
 };
 
 export default UserReducer;
-// Action Creators
-export const setUserData = userData => ({
+
+// **** Action Creators ***** //
+
+/**
+ * Set User Data Action
+ * @param {Object} containing userData
+ */
+const setUserData = userData => ({
   type: SET_USER_DATA,
   payload: {
     data: userData
   }
 });
 
-export const getUser = () => dispatch =>
+/**
+ * Get User Action
+ */
+const getUser = () => dispatch =>
   dispatch({
     type: GET_USER,
     payload: {
@@ -54,6 +63,16 @@ export const getUser = () => dispatch =>
   .then(response => dispatch(setUserData(response.value.data)))
   .catch(response => response.error);
 
-export const setUserLogged = () => ({
+/**
+ * Set User Logged Action
+ */
+const setUserLogged = () => ({
   type: SET_USER_LOGGED
 });
+
+
+export const userActions = {
+  setUserData,
+  getUser,
+  setUserLogged
+};

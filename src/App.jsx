@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as userActions from './redux/modules/user';
+import React, { Component, PropTypes } from 'react';
 import Layout from './layout';
-import * as authActions from './redux/modules/authentication';
+
+import { userTypes } from './types';
+import register from './utils/redux-register';
 
 import { userIsAuthenticated } from './api/auth_token';
 
@@ -24,18 +24,14 @@ class App extends Component {
 }
 
 App.propTypes = {
-  logOut: React.PropTypes.func.isRequired,
-  getUser: React.PropTypes.func.isRequired,
-  userLogged: React.PropTypes.bool.isRequired,
-  setUserLogged: React.PropTypes.func.isRequired
+  logOut: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
+  userLogged: userTypes.userLogged.isRequired,
+  setUserLogged: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  userLogged: state.user.userLogged
-});
-
-export default connect(mapStateToProps, {
-  logOut: authActions.logOut,
-  getUser: userActions.getUser,
-  setUserLogged: userActions.setUserLogged
-})(App);
+export default register(
+  ['userSelector'],
+  ['user.getUser', 'user.setUserLogged', 'authentication.logOut'],
+  App
+);

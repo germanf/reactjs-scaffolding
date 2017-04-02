@@ -1,4 +1,6 @@
+import { push } from 'react-router-redux';
 import { userActions } from './user';
+import { layoutActions } from './layout';
 import Api from '../../api';
 import { storeToken, clearToken } from '../../api/auth_token';
 
@@ -24,7 +26,7 @@ const SIGNUP = 'app/authentication/SIGNUP';
 const AuthenticationReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case `${LOGIN}_PENDING`:
-      return { ...state, signIn: { loggingIn: true } };
+      return { ...state, signIn: { loading: true } };
     case `${LOGIN}_FULFILLED`:
       return {
         ...state,
@@ -74,7 +76,8 @@ export default AuthenticationReducer;
 const login = ({
   email,
   password
-}) => dispatch =>
+}) => (dispatch) => {
+  dispatch(layoutActions.showLoading(true));
   dispatch({
     type: LOGIN,
     payload: {
@@ -90,8 +93,14 @@ const login = ({
     dispatch(userActions.setUserData(userData));
     // set user logged
     dispatch(userActions.setUserLogged());
+    // Done!
+    dispatch(layoutActions.showLoading(false));
   })
-  .catch(response => response.error);
+  .catch((response) => {
+    dispatch(layoutActions.showLoading(false));
+    return response.error;
+  });
+};
 
 /**
  * LogOut Action
@@ -109,10 +118,22 @@ const signUp = ({
   name,
   email,
   password
-}) => ({
-  type: SIGNUP,
-  payload: AuthenticationApiCalls.signUp({ name, email, password })
-});
+}) => (dispatch) => {
+  dispatch(layoutActions.showLoading(true));
+  dispatch({
+    type: SIGNUP,
+    payload: AuthenticationApiCalls.signUp({ name, email, password })
+  })
+  .then((response) => {
+    dispatch(layoutActions.showLoading(false));
+    dispatch(push('/'));
+    return response;
+  })
+  .catch((response) => {
+    dispatch(layoutActions.showLoading(false));
+    return response.error;
+  });
+};
 
 export const authenticationActions = {
   login,

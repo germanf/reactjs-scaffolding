@@ -2,17 +2,11 @@ import React from 'react';
 import register from '../../utils/redux-register';
 import SignUpPage from './SignUpPage';
 
-const SignUpPageContainer = ({ signUp }, { router }) => (
+const SignUpPageContainer = ({ signUp }) => (
   <SignUpPage
-    handleSignUp={(data) => {
-      signUp(data).then(() => router.history.push('/'));
-    }}
+    handleSignUp={data => signUp(data)}
   />
 );
-
-SignUpPageContainer.contextTypes = {
-  router: React.PropTypes.shape()
-};
 
 SignUpPageContainer.propTypes = {
   signUp: React.PropTypes.func.isRequired

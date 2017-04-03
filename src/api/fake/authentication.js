@@ -1,3 +1,5 @@
+import config from '../../config';
+
 const AuthenticationApiCalls = {
 
   login: ({ email, password }) => {
@@ -9,7 +11,7 @@ const AuthenticationApiCalls = {
           message: 'The emial or password is incorrect',
           errors: {}
         }
-      }), 3000));
+      }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
@@ -19,7 +21,7 @@ const AuthenticationApiCalls = {
           name: 'Damian',
           lastName: 'Aruj'
         }
-      }), 3000));
+      }), config.requestTime));
     }
     return promise;
   },
@@ -36,7 +38,7 @@ const AuthenticationApiCalls = {
             email: 'Email already exists'
           }
         }
-      }), 3000));
+      }), config.requestTime));
     } else if (password.length <= 4) {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
@@ -46,7 +48,7 @@ const AuthenticationApiCalls = {
             password: 'Password to short'
           }
         }
-      }), 3000));
+      }), config.requestTime));
     } else if (name === 'Sebastian Azagra') {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
@@ -56,7 +58,7 @@ const AuthenticationApiCalls = {
             name: 'Name taken'
           }
         }
-      }), 3000));
+      }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
@@ -65,7 +67,7 @@ const AuthenticationApiCalls = {
           name: 'Damian',
           lastName: 'Aruj'
         }
-      }), 3000));
+      }), config.requestTime));
     }
     return promise;
   },
@@ -82,14 +84,14 @@ const AuthenticationApiCalls = {
             email: 'Email does not exist'
           }
         }
-      }), 3000));
+      }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
         data: {
           emailSent: true
         }
-      }), 3000));
+      }), config.requestTime));
     }
     return promise;
   },
@@ -105,7 +107,7 @@ const AuthenticationApiCalls = {
             password: 'Password to short'
           }
         }
-      }), 3000));
+      }), config.requestTime));
     } else if (token === 'abcd') {
       // Get error when the email does not exist
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
@@ -113,14 +115,14 @@ const AuthenticationApiCalls = {
           message: 'The token is invalid or has been expired',
           errors: {}
         }
-      }), 3000));
+      }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
         data: {
           changedPassword: true
         }
-      }), 3000));
+      }), config.requestTime));
     }
     return promise;
   }

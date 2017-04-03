@@ -1,3 +1,4 @@
+import config from '../../config';
 import { getToken } from '../auth_token';
 
 const UserApiCalls = {
@@ -11,7 +12,7 @@ const UserApiCalls = {
           message: 'You are not logged in',
           errors: {}
         }
-      }), 3000));
+      }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
@@ -20,7 +21,7 @@ const UserApiCalls = {
           name: 'Damian',
           lastName: 'Aruj'
         }
-      }), 3000));
+      }), config.requestTime));
     }
     return promise;
   }

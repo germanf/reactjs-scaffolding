@@ -3,7 +3,7 @@ import {
   Route,
   Switch,
   Redirect,
-  Link
+  NavLink
 } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import routes from '../Routes';
@@ -23,8 +23,8 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
         <nav className={styles.nav}>
           {userLogged ? (
             <ul className={styles.content}>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/user">User</Link></li>
+              <li><NavLink to="/" exact activeClassName={styles.activeLink}>Home</NavLink></li>
+              <li><NavLink to="/user" exact activeClassName={styles.activeLink}>User</NavLink></li>
               <li>
                 <a
                   href="/logout"
@@ -37,9 +37,9 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
             </ul>
           ) : (
             <ul className={styles.content}>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/login">SignIn</Link></li>
-              <li><Link to="/signup">SignUp</Link></li>
+              <li><NavLink to="/" exact activeClassName={styles.activeLink}>Home</NavLink></li>
+              <li><NavLink to="/login" exact activeClassName={styles.activeLink}>SignIn</NavLink></li>
+              <li><NavLink to="/signup" exact activeClassName={styles.activeLink}>SignUp</NavLink></li>
             </ul>
           )}
         </nav>

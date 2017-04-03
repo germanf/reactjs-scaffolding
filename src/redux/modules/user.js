@@ -28,18 +28,9 @@ const SET_USER_LOGGED = 'app/user/SET_USER_LOGGED';
 const UserReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case `${GET_USER}_PENDING`:
-      return { ...state, getUser: { loading: true } };
+      return { ...state, getUser: { ...state.getUser, loading: true } };
     case `${GET_USER}_FULFILLED`:
-      return {
-        ...state,
-        getUser: {
-          loading: false,
-          error: {
-            message: '',
-            errors: {}
-          }
-        }
-      };
+      return { ...state, getUser: { ...state.getUser, loading: false } };
     case `${GET_USER}_REJECTED`:
       return {
         ...state,

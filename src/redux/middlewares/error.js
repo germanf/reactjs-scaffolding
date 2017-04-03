@@ -3,7 +3,7 @@
 import isPromise from '../../utils/is-promise';
 import oneOfType from '../../utils/one-of-type';
 import * as errorTypes from '../../constants/error';
-import { clearToken } from '../../api/auth_token';
+import { clearToken, clearState } from '../../api/auth_token';
 
 export default function globalErrorMiddleware() {
   return next => (action) => {
@@ -15,6 +15,7 @@ export default function globalErrorMiddleware() {
       if (action.payload && action.payload.response) {
         if (action.payload.response.status === 401) {
           clearToken();
+          clearState();
           return next({
             type: 'RESET'
           });

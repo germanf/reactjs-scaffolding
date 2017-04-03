@@ -1,14 +1,17 @@
 import React from 'react';
 import Form from 'react-awesome-form-validator';
 import { isEmail } from 'validator';
-import { Link } from 'react-router-dom';
-import styles from './SignInPage.scss';
+import { forgotPasswordTypes } from '../../types';
+import styles from './ForgotPasswordPage.scss';
 
-const SignInPage = ({ handleLogin }) => (
+const ForgotPasswordPage = ({ handleForgotPassword, forgotPassword }) => (
   <div className={styles.wrapper}>
-    <h1>Sign</h1>
+    <h1>Forgot Password</h1>
+    <Form
+      onSubmit={formData => handleForgotPassword(formData)}
+      serverErrors={forgotPassword.error.errors}
+    >
 
-    <Form onSubmit={formData => handleLogin(formData)} >
       <Form.Input
         name="email"
         placeHolder=""
@@ -31,39 +34,19 @@ const SignInPage = ({ handleLogin }) => (
         }}
       />
 
-      <Form.Input
-        name="password"
-        placeHolder=""
-        type="password"
-        label="Password"
-        fieldClassName="form-field"
-        startValidatingWhenIsPristine
-        validate={(value) => {
-          let valid = true;
-          let errorMessage = '';
-          if (!value.length) {
-            valid = false;
-            errorMessage = 'This field is required';
-          }
-          return { valid, errorMessage };
-        }}
-      />
-
       <Form.CustomSubmitButton>
         <div className={styles.submitWrapper}>
-          <a className="button submit">Sign In</a>
+          <a className="button submit">Sign Up</a>
         </div>
       </Form.CustomSubmitButton>
-
-      <Link to='/forgot-password'>Forgot Password</Link>
 
     </Form>
   </div>
 );
 
-
-SignInPage.propTypes = {
-  handleLogin: React.PropTypes.func.isRequired
+ForgotPasswordPage.propTypes = {
+  handleForgotPassword: React.PropTypes.func.isRequired,
+  forgotPassword: forgotPasswordTypes.isRequired
 };
 
-export default SignInPage;
+export default ForgotPasswordPage;

@@ -1,4 +1,5 @@
 const AuthenticationApiCalls = {
+
   login: ({ email, password }) => {
     let promise;
     if (email === 'aruj.damian@gmail.com' || password === '12345') {
@@ -22,6 +23,8 @@ const AuthenticationApiCalls = {
     }
     return promise;
   },
+
+
   signUp: ({ name, email, password }) => {
     let promise;
     if (email === 'aruj.damian@gmail.com') {
@@ -58,7 +61,6 @@ const AuthenticationApiCalls = {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
         data: {
-          token: '1ksfjalkj14kj21lkasfwopq',
           email,
           name: 'Damian',
           lastName: 'Aruj'
@@ -66,7 +68,64 @@ const AuthenticationApiCalls = {
       }), 3000));
     }
     return promise;
+  },
+
+
+  forgotPassword: ({ email }) => {
+    let promise;
+    if (email === 'damian@gmail.com') {
+      // Get error when the email does not exist
+      promise = new Promise((resolve, reject) => setTimeout(() => reject({
+        error: {
+          message: 'We found some errors',
+          errors: {
+            email: 'Email does not exist'
+          }
+        }
+      }), 3000));
+    } else {
+      // return user data
+      promise = new Promise(resolve => setTimeout(() => resolve({
+        data: {
+          emailSent: true
+        }
+      }), 3000));
+    }
+    return promise;
+  },
+
+  resetPassword: ({ token, password }) => {
+    let promise;
+    if (password === '12345') {
+      // Get error when the password is short
+      promise = new Promise((resolve, reject) => setTimeout(() => reject({
+        error: {
+          message: 'We found some errors',
+          errors: {
+            password: 'Password to short'
+          }
+        }
+      }), 3000));
+    } else if (token === 'abcd') {
+      // Get error when the email does not exist
+      promise = new Promise((resolve, reject) => setTimeout(() => reject({
+        error: {
+          message: 'The token is invalid or has been expired',
+          errors: {}
+        }
+      }), 3000));
+    } else {
+      // return user data
+      promise = new Promise(resolve => setTimeout(() => resolve({
+        data: {
+          changedPassword: true
+        }
+      }), 3000));
+    }
+    return promise;
   }
+
+
 };
 
 export default AuthenticationApiCalls;

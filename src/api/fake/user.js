@@ -1,6 +1,7 @@
 import { getToken } from '../auth_token';
 
 const UserApiCalls = {
+
   getUser: () => {
     let promise;
     if (!getToken()) {
@@ -23,6 +24,7 @@ const UserApiCalls = {
     }
     return promise;
   }
+
 };
 
 export default UserApiCalls;

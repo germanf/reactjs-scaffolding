@@ -159,3 +159,45 @@ export default {
     asyncRequest({ secured }, req => req.delete(url, otherConfigs))
 
 };
+
+export const getDefaultRequestObject = {
+  loading: false,
+  response: {
+    status: null,
+    message: '',
+    errors: []
+  }
+};
+
+export const getResponseObject = (status, response) => {
+  switch (status) {
+    case 'PENDING':
+      return {
+        loading: true,
+        response: {
+          message: '',
+          errors: [],
+          status: null
+        }
+      };
+    case 'FULFILLED':
+      return {
+        loading: false,
+        response: {
+          message: response.message || '',
+          errors: [],
+          status: response.status || 'success'
+        }
+      };
+    case 'REJECTED':
+      return {
+        loading: false,
+        response: {
+          message: response.message || '',
+          errors: response.errors || [],
+          status: response.status || 'error'
+        }
+      };
+    default: return {};
+  }
+};

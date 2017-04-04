@@ -1,13 +1,16 @@
 import React from 'react';
 import Form from 'react-awesome-form-validator';
 import { isAlpha, isEmail } from 'validator';
-
+import { formTypes } from '../../types';
 import styles from './SignUpPage.scss';
 
-const SignUpPage = ({ handleSignUp }) => (
+const SignUpPage = ({ handleSignUp, serverErrors }) => (
   <div className={styles.wrapper}>
     <h1>Complete the following to get started!</h1>
-    <Form onSubmit={formData => handleSignUp(formData)}>
+    <Form
+      onSubmit={formData => handleSignUp(formData)}
+      serverErrors={serverErrors}
+    >
       <Form.Input
         name="name"
         placeHolder=""
@@ -79,7 +82,8 @@ const SignUpPage = ({ handleSignUp }) => (
 );
 
 SignUpPage.propTypes = {
-  handleSignUp: React.PropTypes.func.isRequired
+  handleSignUp: React.PropTypes.func.isRequired,
+  serverErrors: formTypes.serverErrors.isRequired
 };
 
 export default SignUpPage;

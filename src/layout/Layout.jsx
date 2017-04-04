@@ -1,54 +1,47 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
-  Link
+  NavLink
 } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import routes from '../Routes';
 
+import LoadingSpinner from '../components/shared/LoadingSpinner';
 import { userIsAuthenticated } from '../api/auth_token';
+import register from '../utils/redux-register';
 
 import '../assets/css/style.scss';
 import styles from './Layout.scss';
 
-const Layout = ({ handleLogOut, userLogged }) => (
-  <Router>
+const Layout = ({ handleLogOut, userLogged, loading, history }) => (
+  <ConnectedRouter history={history}>
     <div className="root">
       <div className="wrap">
         <header className={styles.header}>WhitePrompt Scaffolding 2.0</header>
         <nav className={styles.nav}>
-          <Switch>
-            {routes.map(route => (
-              <Route
-                key={route.path}
-                path={route.path}
-                exact={route.exact}
-                render={() => (userIsAuthenticated() || userLogged ? (
-                  <ul className={styles.content}>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/user">User</Link></li>
-                    <li>
-                      <a
-                        href="/logout"
-                        onClick={(evt) => {
-                          evt.preventDefault();
-                          handleLogOut();
-                        }}
-                      >LogOut</a>
-                    </li>
-                  </ul>
-                ) : (
-                  <ul className={styles.content}>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/login">SignIn</Link></li>
-                    <li><Link to="/signup">SignUp</Link></li>
-                  </ul>
-                ))}
-              />
-            ))}
-          </Switch>
+          {userLogged ? (
+            <ul className={styles.content}>
+              <li><NavLink to="/" exact activeClassName={styles.activeLink}>Home</NavLink></li>
+              <li><NavLink to="/user" exact activeClassName={styles.activeLink}>User</NavLink></li>
+              <li>
+                <a
+                  href="/logout"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    handleLogOut();
+                  }}
+                >LogOut</a>
+              </li>
+            </ul>
+          ) : (
+            <ul className={styles.content}>
+              <li><NavLink to="/" exact activeClassName={styles.activeLink}>Home</NavLink></li>
+              <li><NavLink to="/login" exact activeClassName={styles.activeLink}>SignIn</NavLink></li>
+              <li><NavLink to="/signup" exact activeClassName={styles.activeLink}>SignUp</NavLink></li>
+            </ul>
+          )}
         </nav>
         <Switch>
           {routes.filter(r => r.path === '/login').map(route => (
@@ -64,7 +57,7 @@ const Layout = ({ handleLogOut, userLogged }) => (
                 />
               ) : (
                 <div className={styles.content}>
-                  <route.component />
+                  <route.component {...props} />
                 </div>
               ))}
             />
@@ -76,7 +69,7 @@ const Layout = ({ handleLogOut, userLogged }) => (
               exact={route.exact}
               render={props => ((!route.secure || (route.secure && userIsAuthenticated())) ? (
                 <div className={styles.content}>
-                  <route.component />
+                  <route.component {...props} />
                 </div>
               ) : (
                 <Redirect
@@ -93,14 +86,20 @@ const Layout = ({ handleLogOut, userLogged }) => (
         <footer className={styles.footer}>WhitePrompt.com</footer>
 
       </div>
-
+      <LoadingSpinner active={loading} />
     </div>
-  </Router>
+  </ConnectedRouter>
 );
 
 Layout.propTypes = {
-  handleLogOut: React.PropTypes.func.isRequired,
-  userLogged: React.PropTypes.bool.isRequired
+  handleLogOut: PropTypes.func.isRequired,
+  userLogged: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  history: PropTypes.shape({}).isRequired
 };
 
-export default Layout;
+export default register(
+  ['userSelector', 'layoutSelector'],
+  ['authentication.handleLogOut'],
+  Layout
+);

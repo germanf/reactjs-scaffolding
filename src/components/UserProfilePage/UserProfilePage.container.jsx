@@ -11,7 +11,6 @@ UserProfilePageContainer.propTypes = {
   user: userTypes.user.isRequired
 };
 
-
 export default register(
   ['userSelector'],
   [],

@@ -1,4 +1,3 @@
-/* eslint import/prefer-default-export: 0 */
-import userTypes from './user';
-
-export { userTypes };
+export { default as userTypes } from './user';
+export { default as authenticationTypes } from './authentication';
+export { default as formTypes } from './form';

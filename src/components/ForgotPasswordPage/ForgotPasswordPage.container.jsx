@@ -6,40 +6,42 @@ import {
 import { ConnectedRouter } from 'react-router-redux';
 import register from '../../utils/redux-register';
 import { authenticationTypes } from '../../types';
-import SignUpPage from './SignUpPage';
+import ForgotPasswordPage from './ForgotPasswordPage';
 
-const SignUpPageContainer = ({ history, match, handleSignUp, signUpResponse }) => (
+const ForgotPasswordPageContainer = ({
+  history, match, handleForgotPassword, forgotPasswordResponse
+}) => (
   <ConnectedRouter history={history}>
     <Switch>
       <Route
         path={match.path}
         exact
         render={() => (
-          <SignUpPage
-            handleSignUp={data => handleSignUp(data)}
-            serverErrors={signUpResponse.serverErrors}
+          <ForgotPasswordPage
+            handleForgotPassword={data => handleForgotPassword(data)}
+            serverErrors={forgotPasswordResponse.serverErrors}
           />
         )}
       />
       <Route
         path={`${match.path}/success`}
         render={() => (
-          <p>Thank you. We have sent you an email to confirm your acount!</p>
+          <p>Thank you. We have sent you an email to reset your password!</p>
         )}
       />
     </Switch>
   </ConnectedRouter>
 );
 
-SignUpPageContainer.propTypes = {
-  handleSignUp: authenticationTypes.handleSignUp.isRequired,
-  signUpResponse: authenticationTypes.signUpResponse.isRequired,
+ForgotPasswordPageContainer.propTypes = {
+  handleForgotPassword: authenticationTypes.handleForgotPassword.isRequired,
+  forgotPasswordResponse: authenticationTypes.forgotPasswordResponse.isRequired,
   match: PropTypes.shape({}).isRequired,
   history: PropTypes.shape({}).isRequired
 };
 
 export default register(
   ['authenticationSelector'],
-  ['authentication.handleSignUp'],
-  SignUpPageContainer
+  ['authentication.handleForgotPassword'],
+  ForgotPasswordPageContainer
 );

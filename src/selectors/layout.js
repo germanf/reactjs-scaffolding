@@ -1,10 +1,9 @@
 import createSelector from '../utils/create-selector';
 
-const getUser = ({ user }) => ({
-  user: user.data,
-  userLogged: user.userLogged
+const getLayout = ({ layout }) => ({
+  loading: layout.loading
 });
 
 export default createSelector(
-  getUser
+  getLayout
 );

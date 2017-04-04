@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-awesome-form-validator';
 import { isEmail } from 'validator';
-import { resetPasswordTypes } from '../../types';
+import { formTypes } from '../../types';
 import styles from './ResetPasswordPage.scss';
 
 class ResetPasswordPage extends Component {
@@ -17,7 +17,7 @@ class ResetPasswordPage extends Component {
         <h1>Reset Password</h1>
         <Form
           onSubmit={formData => this.props.handleResetPassword(formData)}
-          serverErrors={this.props.resetPassword.error.errors}
+          serverErrors={this.props.serverErrors}
         >
 
           <Form.Input
@@ -96,7 +96,7 @@ class ResetPasswordPage extends Component {
 
 ResetPasswordPage.propTypes = {
   handleResetPassword: React.PropTypes.func.isRequired,
-  resetPassword: resetPasswordTypes.isRequired
+  serverErrors: formTypes.serverErrors.isRequired
 };
 
 export default ResetPasswordPage;

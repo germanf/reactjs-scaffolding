@@ -1,4 +1,3 @@
 export { default as userTypes } from './user';
-export { default as signUpTypes } from './signUp';
-export { default as forgotPasswordTypes } from './forgotPassword';
-export { default as resetPasswordTypes } from './resetPassword';
+export { default as authenticationTypes } from './authentication';
+export { default as formTypes } from './form';

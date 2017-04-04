@@ -1,16 +1,12 @@
 import Api from '../../api';
+import { getResponseObject, getDefaultRequestObject } from '../../utils/request';
+import { layoutActions } from './layout';
 
 const { UserApiCalls } = Api;
 
 // Initial State
 const initialState = {
-  getUser: {
-    loading: false,
-    error: {
-      message: '',
-      errors: {}
-    }
-  },
+  getUserRequest: getDefaultRequestObject,
   data: {
     email: '',
     name: '',
@@ -28,22 +24,18 @@ const SET_USER_LOGGED = 'app/user/SET_USER_LOGGED';
 const UserReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case `${GET_USER}_PENDING`:
-      return { ...state, getUser: { ...state.getUser, loading: true } };
+      return { ...state, getUserRequest: getResponseObject('PENDING', action.payload) };
     case `${GET_USER}_FULFILLED`:
-      return { ...state, getUser: { ...state.getUser, loading: false } };
+      return { ...state, getUserRequest: getResponseObject('FULFILLED', action.payload) };
     case `${GET_USER}_REJECTED`:
-      return {
-        ...state,
-        getUser: {
-          loading: false,
-          error: action.payload.error
-        }
-      };
+      return { ...state, getUserRequest: getResponseObject('REJECTED', action.payload) };
+
     case SET_USER_DATA:
       return {
         ...state,
         data: action.payload.data
       };
+
     case SET_USER_LOGGED:
       return {
         ...state,
@@ -71,15 +63,21 @@ const setUserData = userData => ({
 /**
  * Get User Action
  */
-const getUser = () => dispatch =>
+const getUser = () => (dispatch) => {
+  dispatch(layoutActions.showLoading(true));
   dispatch({
     type: GET_USER,
-    payload: {
-      promise: UserApiCalls.getUser()
-    }
+    payload: UserApiCalls.getUser()
   })
-  .then(response => dispatch(setUserData(response.value.data)))
-  .catch(response => response.error);
+  .then((response) => {
+    dispatch(layoutActions.showLoading(false));
+    dispatch(setUserData(response.value.data));
+  })
+  .catch((response) => {
+    dispatch(layoutActions.showLoading(false));
+    return response.errors;
+  });
+};
 
 /**
  * Set User Logged Action

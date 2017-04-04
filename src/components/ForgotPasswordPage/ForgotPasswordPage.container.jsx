@@ -5,10 +5,12 @@ import {
 } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import register from '../../utils/redux-register';
-import { forgotPasswordTypes } from '../../types';
+import { authenticationTypes } from '../../types';
 import ForgotPasswordPage from './ForgotPasswordPage';
 
-const ForgotPasswordPageContainer = ({ history, match, handleForgotPassword, forgotPassword }) => (
+const ForgotPasswordPageContainer = ({
+  history, match, handleForgotPassword, forgotPasswordResponse
+}) => (
   <ConnectedRouter history={history}>
     <Switch>
       <Route
@@ -17,7 +19,7 @@ const ForgotPasswordPageContainer = ({ history, match, handleForgotPassword, for
         render={() => (
           <ForgotPasswordPage
             handleForgotPassword={data => handleForgotPassword(data)}
-            forgotPassword={forgotPassword}
+            serverErrors={forgotPasswordResponse.serverErrors}
           />
         )}
       />
@@ -32,14 +34,14 @@ const ForgotPasswordPageContainer = ({ history, match, handleForgotPassword, for
 );
 
 ForgotPasswordPageContainer.propTypes = {
-  handleForgotPassword: PropTypes.func.isRequired,
-  forgotPassword: forgotPasswordTypes.isRequired,
+  handleForgotPassword: authenticationTypes.handleForgotPassword.isRequired,
+  forgotPasswordResponse: authenticationTypes.forgotPasswordResponse.isRequired,
   match: PropTypes.shape({}).isRequired,
   history: PropTypes.shape({}).isRequired
 };
 
 export default register(
-  ['forgotPasswordSelector'],
+  ['authenticationSelector'],
   ['authentication.handleForgotPassword'],
   ForgotPasswordPageContainer
 );

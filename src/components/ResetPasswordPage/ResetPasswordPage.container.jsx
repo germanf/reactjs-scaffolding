@@ -5,10 +5,12 @@ import {
 } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import register from '../../utils/redux-register';
-import { resetPasswordTypes } from '../../types';
+import { authenticationTypes } from '../../types';
 import ResetPasswordPage from './ResetPasswordPage';
 
-const ForgotPasswordPageContainer = ({ history, match, handleResetPassword, resetPassword }) => (
+const ForgotPasswordPageContainer = ({
+  history, match, handleResetPassword, resetPasswordResponse
+}) => (
   <ConnectedRouter history={history}>
     <Switch>
       <Route
@@ -16,8 +18,11 @@ const ForgotPasswordPageContainer = ({ history, match, handleResetPassword, rese
         exact
         render={() => (
           <ResetPasswordPage
-            handleResetPassword={data => handleResetPassword(data)}
-            resetPassword={resetPassword}
+            handleResetPassword={data => handleResetPassword({
+              token: match.params.token,
+              password: data.password
+            })}
+            serverErrors={resetPasswordResponse.serverErrors}
           />
         )}
       />
@@ -33,14 +38,14 @@ const ForgotPasswordPageContainer = ({ history, match, handleResetPassword, rese
 );
 
 ForgotPasswordPageContainer.propTypes = {
-  handleResetPassword: PropTypes.func.isRequired,
-  resetPassword: resetPasswordTypes.isRequired,
+  handleResetPassword: authenticationTypes.handleResetPassword.isRequired,
+  resetPasswordResponse: authenticationTypes.resetPasswordResponse.isRequired,
   match: PropTypes.shape({}).isRequired,
   history: PropTypes.shape({}).isRequired
 };
 
 export default register(
-  ['resetPasswordSelector'],
+  ['authenticationSelector'],
   ['authentication.handleResetPassword'],
   ForgotPasswordPageContainer
 );

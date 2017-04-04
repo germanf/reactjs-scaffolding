@@ -1,15 +1,15 @@
 import React from 'react';
 import Form from 'react-awesome-form-validator';
 import { isEmail } from 'validator';
-import { forgotPasswordTypes } from '../../types';
+import { formTypes } from '../../types';
 import styles from './ForgotPasswordPage.scss';
 
-const ForgotPasswordPage = ({ handleForgotPassword, forgotPassword }) => (
+const ForgotPasswordPage = ({ handleForgotPassword, serverErrors }) => (
   <div className={styles.wrapper}>
     <h1>Forgot Password</h1>
     <Form
       onSubmit={formData => handleForgotPassword(formData)}
-      serverErrors={forgotPassword.error.errors}
+      serverErrors={serverErrors}
     >
 
       <Form.Input
@@ -46,7 +46,7 @@ const ForgotPasswordPage = ({ handleForgotPassword, forgotPassword }) => (
 
 ForgotPasswordPage.propTypes = {
   handleForgotPassword: React.PropTypes.func.isRequired,
-  forgotPassword: forgotPasswordTypes.isRequired
+  serverErrors: formTypes.serverErrors.isRequired
 };
 
 export default ForgotPasswordPage;

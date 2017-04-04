@@ -3,39 +3,16 @@ import { userActions } from './user';
 import { layoutActions } from './layout';
 import Api from '../../api';
 import { storeToken, clearToken, clearState } from '../../api/auth_token';
+import { getResponseObject, getDefaultRequestObject } from '../../utils/request';
 
 const { AuthenticationApiCalls } = Api;
 
 // Initial State
 const initialState = {
-  signIn: {
-    loading: false,
-    error: {
-      message: '',
-      errors: {}
-    }
-  },
-  signUp: {
-    loading: false,
-    error: {
-      message: '',
-      errors: {}
-    }
-  },
-  forgotPassword: {
-    loading: false,
-    error: {
-      message: '',
-      errors: {}
-    }
-  },
-  resetPassword: {
-    loading: false,
-    error: {
-      message: '',
-      errors: {}
-    }
-  }
+  signInRequest: getDefaultRequestObject,
+  signUpRequest: getDefaultRequestObject,
+  forgotPasswordRequest: getDefaultRequestObject,
+  resetPasswordRequest: getDefaultRequestObject
 };
 
 // Actions
@@ -44,60 +21,38 @@ const SIGNUP = 'app/authentication/SIGNUP';
 const FORGOT_PASSWORD = 'app/authentication/FORGOT_PASSORD';
 const RESET_PASSWORD = 'app/authentication/RESET_PASSORD';
 
+
 // Reducer
 const AuthenticationReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case `${LOGIN}_PENDING`:
-      return { ...state, signIn: { ...state.signIn, loading: true } };
+      return { ...state, signInRequest: getResponseObject('PENDING', action.payload) };
     case `${LOGIN}_FULFILLED`:
-      return { ...state, signIn: { ...state.signIn, loading: false } };
+      return { ...state, signInRequest: getResponseObject('FULFILLED', action.payload) };
     case `${LOGIN}_REJECTED`:
-      return {
-        ...state,
-        signIn: {
-          loading: false,
-          error: action.payload.error
-        }
-      };
+      return { ...state, signInRequest: getResponseObject('REJECTED', action.payload) };
 
     case `${SIGNUP}_PENDING`:
-      return { ...state, signUp: { ...state.signUp, loading: true } };
+      return { ...state, signUpRequest: getResponseObject('PENDING', action.payload) };
     case `${SIGNUP}_FULFILLED`:
-      return { ...state, signUp: { ...state.signUp, loading: true } };
+      return { ...state, signUpRequest: getResponseObject('FULFILLED', action.payload) };
     case `${SIGNUP}_REJECTED`:
-      return {
-        ...state,
-        signUp: {
-          loading: false,
-          error: action.payload.error
-        }
-      };
+      return { ...state, signUpRequest: getResponseObject('REJECTED', action.payload) };
 
     case `${FORGOT_PASSWORD}_PENDING`:
-      return { ...state, forgotPassword: { ...state.forgotPassword, loading: true } };
+      return { ...state, forgotPasswordRequest: getResponseObject('PENDING', action.payload) };
     case `${FORGOT_PASSWORD}_FULFILLED`:
-      return { ...state, forgotPassword: { ...state.forgotPassword, loading: false } };
+      return { ...state, forgotPasswordRequest: getResponseObject('FULFILLED', action.payload) };
     case `${FORGOT_PASSWORD}_REJECTED`:
-      return {
-        ...state,
-        forgotPassword: {
-          loading: false,
-          error: action.payload.error
-        }
-      };
+      return { ...state, forgotPasswordRequest: getResponseObject('REJECTED', action.payload) };
 
     case `${RESET_PASSWORD}_PENDING`:
-      return { ...state, resetPassword: { ...state.resetPassword, loading: true } };
+      return { ...state, resetPasswordRequest: getResponseObject('PENDING', action.payload) };
     case `${RESET_PASSWORD}_FULFILLED`:
-      return { ...state, resetPassword: { ...state.resetPassword, loading: false } };
+      return { ...state, resetPasswordRequest: getResponseObject('FULFILLED', action.payload) };
     case `${RESET_PASSWORD}_REJECTED`:
-      return {
-        ...state,
-        resetPassword: {
-          loading: false,
-          error: action.payload.error
-        }
-      };
+      return { ...state, resetPasswordRequest: getResponseObject('REJECTED', action.payload) };
+
     default: return state;
   }
 };
@@ -118,9 +73,7 @@ const login = ({
   dispatch(layoutActions.showLoading(true));
   dispatch({
     type: LOGIN,
-    payload: {
-      promise: AuthenticationApiCalls.login({ email, password })
-    }
+    payload: AuthenticationApiCalls.login({ email, password })
   })
   .then((response) => {
     // remove token from object
@@ -130,13 +83,13 @@ const login = ({
     // set User Data
     dispatch(userActions.handleSetUserData(userData));
     // set user logged
-    dispatch(userActions.handleSetUserLogged());
+    dispatch(userActions.handleSetUserLogged(true));
     // Done!
     dispatch(layoutActions.showLoading(false));
   })
   .catch((response) => {
     dispatch(layoutActions.showLoading(false));
-    return response.error;
+    return response.errors;
   });
 };
 
@@ -170,7 +123,7 @@ const signUp = ({
   })
   .catch((response) => {
     dispatch(layoutActions.showLoading(false));
-    return response.error;
+    return response.errors;
   });
 };
 
@@ -193,7 +146,7 @@ const forgotPassword = ({
   })
   .catch((response) => {
     dispatch(layoutActions.showLoading(false));
-    return response.error;
+    return response.errors;
   });
 };
 
@@ -217,7 +170,7 @@ const resetPassword = ({
   })
   .catch((response) => {
     dispatch(layoutActions.showLoading(false));
-    return response.error;
+    return response.errors;
   });
 };
 

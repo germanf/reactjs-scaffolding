@@ -5,10 +5,10 @@ import {
 } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import register from '../../utils/redux-register';
-import { signUpTypes } from '../../types';
+import { authenticationTypes } from '../../types';
 import SignUpPage from './SignUpPage';
 
-const SignUpPageContainer = ({ history, match, handleSignUp, signUp }) => (
+const SignUpPageContainer = ({ history, match, handleSignUp, signUpResponse }) => (
   <ConnectedRouter history={history}>
     <Switch>
       <Route
@@ -17,7 +17,7 @@ const SignUpPageContainer = ({ history, match, handleSignUp, signUp }) => (
         render={() => (
           <SignUpPage
             handleSignUp={data => handleSignUp(data)}
-            signUp={signUp}
+            serverErrors={signUpResponse.serverErrors}
           />
         )}
       />
@@ -32,14 +32,14 @@ const SignUpPageContainer = ({ history, match, handleSignUp, signUp }) => (
 );
 
 SignUpPageContainer.propTypes = {
-  handleSignUp: PropTypes.func.isRequired,
-  signUp: signUpTypes.isRequired,
+  handleSignUp: authenticationTypes.handleSignUp.isRequired,
+  signUpResponse: authenticationTypes.signUpResponse.isRequired,
   match: PropTypes.shape({}).isRequired,
   history: PropTypes.shape({}).isRequired
 };
 
 export default register(
-  ['signUpSelector'],
+  ['authenticationSelector'],
   ['authentication.handleSignUp'],
   SignUpPageContainer
 );

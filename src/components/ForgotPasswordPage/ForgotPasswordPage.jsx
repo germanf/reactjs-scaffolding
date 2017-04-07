@@ -2,10 +2,9 @@ import React from 'react';
 import Form from 'react-awesome-form-validator';
 import { isEmail } from 'validator';
 import { formTypes } from '../../types';
-import styles from './ForgotPasswordPage.scss';
 
 const ForgotPasswordPage = ({ handleForgotPassword, serverErrors }) => (
-  <div className={styles.wrapper}>
+  <div className="page forgot-password">
     <h1>Forgot Password</h1>
     <Form
       onSubmit={formData => handleForgotPassword(formData)}
@@ -35,8 +34,8 @@ const ForgotPasswordPage = ({ handleForgotPassword, serverErrors }) => (
       />
 
       <Form.CustomSubmitButton>
-        <div className={styles.submitWrapper}>
-          <a className="button submit">Sign Up</a>
+        <div className="form-field form-submit">
+          <a className="button submit">Send</a>
         </div>
       </Form.CustomSubmitButton>
 

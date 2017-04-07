@@ -2,11 +2,15 @@ import React from 'react';
 import Form from 'react-awesome-form-validator';
 import { isEmail } from 'validator';
 import { Link } from 'react-router-dom';
-import styles from './SignInPage.scss';
+import { authenticationTypes } from '../../types';
 
-const SignInPage = ({ handleLogin }) => (
-  <div className={styles.wrapper}>
-    <h1>Sign</h1>
+const SignInPage = ({ handleLogin, signInResponse }) => (
+  <div className="page sign-in">
+    <h1>Sign Into Aleign</h1>
+
+    {!signInResponse.success && (
+      <p className="error">{signInResponse.message}</p>
+    )}
 
     <Form onSubmit={formData => handleLogin(formData)} >
       <Form.Input
@@ -50,12 +54,12 @@ const SignInPage = ({ handleLogin }) => (
       />
 
       <Form.CustomSubmitButton>
-        <div className={styles.submitWrapper}>
+        <div className="form-field form-submit">
           <a className="button submit">Sign In</a>
         </div>
       </Form.CustomSubmitButton>
 
-      <Link to='/forgot-password'>Forgot Password</Link>
+      <Link to="/forgot-password">Forgot Password</Link>
 
     </Form>
   </div>
@@ -63,7 +67,8 @@ const SignInPage = ({ handleLogin }) => (
 
 
 SignInPage.propTypes = {
-  handleLogin: React.PropTypes.func.isRequired
+  handleLogin: React.PropTypes.func.isRequired,
+  signInResponse: authenticationTypes.signInResponse.isRequired
 };
 
 export default SignInPage;

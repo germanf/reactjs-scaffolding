@@ -1,9 +1,10 @@
 import { push } from 'react-router-redux';
 import { userActions } from './user';
+import { modalActions } from './modal';
 import { layoutActions } from './layout';
 import Api from '../../api';
 import { storeToken, clearToken, clearState } from '../../api/auth_token';
-import { getResponseObject, getDefaultRequestObject } from '../../utils/request';
+import RequestReducer, { getDefaultRequestObject, actionTypes } from '../../utils/request-reducer';
 
 const { AuthenticationApiCalls } = Api;
 
@@ -24,37 +25,23 @@ const RESET_PASSWORD = 'app/authentication/RESET_PASSORD';
 
 // Reducer
 const AuthenticationReducer = (state = initialState, action = {}) => {
-  switch (action.type) {
-    case `${LOGIN}_PENDING`:
-      return { ...state, signInRequest: getResponseObject('PENDING', action.payload) };
-    case `${LOGIN}_FULFILLED`:
-      return { ...state, signInRequest: getResponseObject('FULFILLED', action.payload) };
-    case `${LOGIN}_REJECTED`:
-      return { ...state, signInRequest: getResponseObject('REJECTED', action.payload) };
-
-    case `${SIGNUP}_PENDING`:
-      return { ...state, signUpRequest: getResponseObject('PENDING', action.payload) };
-    case `${SIGNUP}_FULFILLED`:
-      return { ...state, signUpRequest: getResponseObject('FULFILLED', action.payload) };
-    case `${SIGNUP}_REJECTED`:
-      return { ...state, signUpRequest: getResponseObject('REJECTED', action.payload) };
-
-    case `${FORGOT_PASSWORD}_PENDING`:
-      return { ...state, forgotPasswordRequest: getResponseObject('PENDING', action.payload) };
-    case `${FORGOT_PASSWORD}_FULFILLED`:
-      return { ...state, forgotPasswordRequest: getResponseObject('FULFILLED', action.payload) };
-    case `${FORGOT_PASSWORD}_REJECTED`:
-      return { ...state, forgotPasswordRequest: getResponseObject('REJECTED', action.payload) };
-
-    case `${RESET_PASSWORD}_PENDING`:
-      return { ...state, resetPasswordRequest: getResponseObject('PENDING', action.payload) };
-    case `${RESET_PASSWORD}_FULFILLED`:
-      return { ...state, resetPasswordRequest: getResponseObject('FULFILLED', action.payload) };
-    case `${RESET_PASSWORD}_REJECTED`:
-      return { ...state, resetPasswordRequest: getResponseObject('REJECTED', action.payload) };
-
-    default: return state;
+  if (actionTypes(LOGIN).includes(action.type)) {
+    return RequestReducer(state, action, LOGIN, 'signInRequest');
   }
+
+  if (actionTypes(SIGNUP).includes(action.type)) {
+    return RequestReducer(state, action, SIGNUP, 'signUpRequest');
+  }
+
+  if (actionTypes(FORGOT_PASSWORD).includes(action.type)) {
+    return RequestReducer(state, action, FORGOT_PASSWORD, 'forgotPasswordRequest');
+  }
+
+  if (actionTypes(RESET_PASSWORD).includes(action.type)) {
+    return RequestReducer(state, action, RESET_PASSWORD, 'resetPasswordRequest');
+  }
+
+  return state;
 };
 
 export default AuthenticationReducer;
@@ -76,8 +63,9 @@ const login = ({
     payload: AuthenticationApiCalls.login({ email, password })
   })
   .then((response) => {
+    const responseValue = response.value.data;
     // remove token from object
-    const { token, ...userData } = response.value.data;
+    const { token, ...userData } = responseValue.data;
     // store token in localStorage
     storeToken(token);
     // set User Data
@@ -89,6 +77,10 @@ const login = ({
   })
   .catch((response) => {
     dispatch(layoutActions.showLoading(false));
+    dispatch(modalActions.handleToggleModal('message', {
+      title: 'Error Found',
+      description: response.message
+    }));
     return response.errors;
   });
 };
@@ -118,11 +110,15 @@ const signUp = ({
   })
   .then((response) => {
     dispatch(layoutActions.showLoading(false));
-    dispatch(push('/signup/success'));
+    dispatch(push('/register/success'));
     return response;
   })
   .catch((response) => {
     dispatch(layoutActions.showLoading(false));
+    dispatch(modalActions.handleToggleModal('message', {
+      title: 'Error Found',
+      description: response.message
+    }));
     return response.errors;
   });
 };

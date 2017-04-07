@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Form from 'react-awesome-form-validator';
 import { isEmail } from 'validator';
 import { formTypes } from '../../types';
-import styles from './ResetPasswordPage.scss';
 
 class ResetPasswordPage extends Component {
   constructor(props) {
@@ -13,34 +12,12 @@ class ResetPasswordPage extends Component {
   }
   render() {
     return (
-      <div className={styles.wrapper}>
+      <div className="page reset-password">
         <h1>Reset Password</h1>
         <Form
           onSubmit={formData => this.props.handleResetPassword(formData)}
           serverErrors={this.props.serverErrors}
         >
-
-          <Form.Input
-            name="email"
-            placeHolder=""
-            label="Email Address"
-            type="email"
-            value=""
-            fieldClassName="form-field"
-            startValidatingWhenIsPristine
-            validate={(value) => {
-              let valid = true;
-              let errorMessage = '';
-              if (!value.length) {
-                valid = false;
-                errorMessage = 'This field is required';
-              } else if (!isEmail(value.replace(/\s/g, ''))) {
-                valid = false;
-                errorMessage = 'You must enter a valid email';
-              }
-              return { valid, errorMessage };
-            }}
-          />
 
           <Form.Input
             name="password"
@@ -83,8 +60,8 @@ class ResetPasswordPage extends Component {
           />
 
           <Form.CustomSubmitButton>
-            <div className={styles.submitWrapper}>
-              <a className="button submit">Sign Up</a>
+            <div className="form-field form-submit">
+              <a className="button submit">Reset Password</a>
             </div>
           </Form.CustomSubmitButton>
 

@@ -1,50 +1,37 @@
-.header {
-  padding: 40px;
-  background-color: #b2d4de;
-  border-bottom: 2px solid #ccc;
-  font-size: 24px;
+#app, .root, .wrap {
+    height: 100%;
 }
 
-.activeLink {
-  font-weight: bold;
+.container {
+  padding-top: 70px;
+  background-color: #F4F4F4;
+  position: relative;
+  height: 100%;
+
+  .content {
+    height: 100%;
+    padding: 0 10px;
+  }
 }
 
-.nav {
-  ul {
-    list-style: none;
-    display: block;
-    margin: 0;
-    background-color: #efeaea;
-    padding: 0;
-    width: 100%;
-    li {
-      display: inline-block;
+@include screen-med(){
+  .container {
+    width: 900px;
+    margin: 0 auto;
+
+    .content {
       padding: 0 20px;
-      a {
-        padding: 15px;
-        display: block;
-        text-decoration: none;
-        color: #807777;
-        cursor: pointer;
-      }
     }
   }
 }
 
-.content {
-  width: 1024px;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 4px;
+
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
 }
 
-.footer {
-  padding: 20px;
-  text-align: center;
-  background-color: #b2d4de;
-  border-top: 2px solid #ccc;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
 }

@@ -3,15 +3,17 @@ import { userTypes } from '../../types';
 import { userIsAuthenticated } from '../../api/auth_token';
 
 const HomePage = ({
-  user
+  user,
+  userLogged
 }) => (
   <div>
-    Welcome { userIsAuthenticated() ? `Back ${user.name} ${user.lastName}` : 'to the Scaffolding 2.0' }
+    Welcome { userLogged ? `Back ${user.name} ${user.lastName}` : 'to the Scaffolding 2.0' }
   </div>
 );
 
 HomePage.propTypes = {
-  user: userTypes.user.isRequired
+  user: userTypes.user,
+  userLogged: userTypes.userLogged.isRequired
 };
 
 export default HomePage;

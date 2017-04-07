@@ -1,48 +1,24 @@
 import React, { PropTypes } from 'react';
-import {
-  Route,
-  Switch,
-  Redirect,
-  NavLink
-} from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-import routes from '../Routes';
-
-import LoadingSpinner from '../components/shared/LoadingSpinner';
+import { modalTypes } from '../types';
 import { userIsAuthenticated } from '../api/auth_token';
+
+import routes from '../Routes';
 import register from '../utils/redux-register';
 
-import '../assets/css/style.scss';
-import styles from './Layout.scss';
+import LoadingSpinner from './LoadingSpinner';
+import Header from './Header';
+import Overlay from './Overlay';
+import MessageModal from '../components/Modal/MessageModal';
 
-const Layout = ({ handleLogOut, userLogged, loading, history }) => (
+import '../assets/scss/main.scss';
+
+const Layout = ({ userLogged, modal, loading, history }) => (
   <ConnectedRouter history={history}>
     <div className="root">
       <div className="wrap">
-        <header className={styles.header}>WhitePrompt Scaffolding 2.0</header>
-        <nav className={styles.nav}>
-          {userLogged ? (
-            <ul className={styles.content}>
-              <li><NavLink to="/" exact activeClassName={styles.activeLink}>Home</NavLink></li>
-              <li><NavLink to="/user" exact activeClassName={styles.activeLink}>User</NavLink></li>
-              <li>
-                <a
-                  href="/logout"
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    handleLogOut();
-                  }}
-                >LogOut</a>
-              </li>
-            </ul>
-          ) : (
-            <ul className={styles.content}>
-              <li><NavLink to="/" exact activeClassName={styles.activeLink}>Home</NavLink></li>
-              <li><NavLink to="/login" exact activeClassName={styles.activeLink}>SignIn</NavLink></li>
-              <li><NavLink to="/signup" exact activeClassName={styles.activeLink}>SignUp</NavLink></li>
-            </ul>
-          )}
-        </nav>
+        <Header history={history} />
         <Switch>
           {routes.filter(r => r.path === '/login').map(route => (
             <Route
@@ -56,7 +32,7 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
                   }}
                 />
               ) : (
-                <div className={styles.content}>
+                <div className="container">
                   <route.component {...props} />
                 </div>
               ))}
@@ -68,7 +44,7 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
               path={route.path}
               exact={route.exact}
               render={props => ((!route.secure || (route.secure && userIsAuthenticated())) ? (
-                <div className={styles.content}>
+                <div className="container">
                   <route.component {...props} />
                 </div>
               ) : (
@@ -82,24 +58,27 @@ const Layout = ({ handleLogOut, userLogged, loading, history }) => (
             />
           ))}
         </Switch>
-
-        <footer className={styles.footer}>WhitePrompt.com</footer>
-
       </div>
+
+      <Overlay>
+        { modal.message.open && <MessageModal data={modal.message.data} /> }
+      </Overlay>
+
       <LoadingSpinner active={loading} />
+
     </div>
   </ConnectedRouter>
 );
 
 Layout.propTypes = {
-  handleLogOut: PropTypes.func.isRequired,
-  userLogged: PropTypes.bool.isRequired,
+  userLogged: React.PropTypes.bool.isRequired,
+  modal: modalTypes.modal.isRequired,
   loading: PropTypes.bool.isRequired,
   history: PropTypes.shape({}).isRequired
 };
 
 export default register(
-  ['userSelector', 'layoutSelector'],
-  ['authentication.handleLogOut'],
+  ['modalSelector', 'layoutSelector'],
+  [],
   Layout
 );

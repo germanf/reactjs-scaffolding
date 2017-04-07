@@ -1,8 +1,6 @@
-@import "../../../assets/css/colors";
-@import "../../../assets/css/breakpoints";
-
 $offset: 187;
 $duration: 1.4s;
+$main-blue: #0C9EEF;
 
 @keyframes rotator {
   0% { transform: rotate(0deg); }
@@ -51,6 +49,8 @@ $duration: 1.4s;
 
       width: 65px;
       height: 65px;
+      margin-top: -33px;
+      margin-left: -33px;
       viewBox: 0 0 66 66;
       xmlns: "http://www.w3.org/2000/svg";
       position: fixed;

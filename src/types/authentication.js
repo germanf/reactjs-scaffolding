@@ -4,12 +4,12 @@ import formType from './form';
 const authFormResponse = PropTypes.shape({
   message: formType.message.isRequired,
   serverErrors: formType.serverErrors.isRequired,
-  success: PropTypes.bool.isRequired
+  success: PropTypes.bool
 });
 
 export default {
   // Requests States
-  signInRequest: authFormResponse,
+  signInResponse: authFormResponse,
   signUpResponse: authFormResponse,
   forgotPasswordResponse: authFormResponse,
   resetPasswordResponse: authFormResponse,
@@ -17,5 +17,6 @@ export default {
   handleResetPassword: PropTypes.func,
   handleSignUp: PropTypes.func,
   handleForgotPassword: PropTypes.func,
-  handleLogin: PropTypes.func
+  handleLogin: PropTypes.func,
+  handleLogOut: PropTypes.func
 };

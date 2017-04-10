@@ -92,26 +92,35 @@ module.exports = {
         })
       },
       {
-        test: /\.(eot|ttf|woff|woff2)$/,
-        loader: 'file-loader?name=public/fonts/[name].[ext]'
+        test: /\.woff(2)?(\?[a-z0-9]+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      }, {
+        test: /\.(ttf|eot|svg)(\?[a-z0-9]+)?$/,
+        loader: 'file-loader'
       },
+
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-            query: {
-              progressive: true,
-              optimizationLevel: 7,
-              interlaced: false,
-              pngquant: {
-                quality: '65-90',
-                speed: 4
-              }
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: ['file-loader?context=src/images&name=images/[path][name].[ext]', {
+          loader: 'image-webpack-loader',
+          query: {
+            mozjpeg: {
+              progressive: true
+            },
+            gifsicle: {
+              interlaced: false
+            },
+            optipng: {
+              optimizationLevel: 7
+            },
+            pngquant: {
+              quality: '75-90',
+              speed: 3
             }
           }
-        ]
+        }],
+        exclude: /node_modules/,
+        include: __dirname
       }
     ]
   },

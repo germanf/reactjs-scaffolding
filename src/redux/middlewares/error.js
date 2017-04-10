@@ -12,14 +12,12 @@ export default function globalErrorMiddleware() {
     ];
     // If not a promise, continue on
     if (!isPromise(action.payload)) {
-      if (action.payload && action.payload.response) {
-        if (action.payload.response.status === 401) {
-          clearToken();
-          clearState();
-          return next({
-            type: 'RESET'
-          });
-        }
+      if (action.payload && action.payload.status === 401) {
+        clearToken();
+        clearState();
+        return next({
+          type: 'RESET'
+        });
       }
       return next(action);
     }

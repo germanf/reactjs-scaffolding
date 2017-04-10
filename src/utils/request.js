@@ -127,19 +127,22 @@ const defaultAxiosConfs = {
 const instance = axios.create(defaultAxiosConfs);
 
 // Add a response interceptor
-/*
-instance.interceptors.response.use(response => response, error => Promise.reject({
-  error: error.message,
-  response: error.response
-}));
-*/
+
+// Add a response interceptor
+instance.interceptors.response.use(
+  response => response,
+  error => Promise.reject({
+    ...error.response.data,
+    status: error.response.status
+  })
+);
 
 
 const asyncRequest = ({
   secured
 }, request) => {
   if (secured) {
-    instance.defaults.headers.common.Authorization = getToken();
+    instance.defaults.headers.common.Authorization = `Bearer ${getToken()}`;
   }
   return request(instance);
 };
@@ -158,46 +161,4 @@ export default {
   delete: (url = '', secured = false, otherConfigs = {}) =>
     asyncRequest({ secured }, req => req.delete(url, otherConfigs))
 
-};
-
-export const getDefaultRequestObject = {
-  loading: false,
-  response: {
-    status: null,
-    message: '',
-    errors: []
-  }
-};
-
-export const getResponseObject = (status, response) => {
-  switch (status) {
-    case 'PENDING':
-      return {
-        loading: true,
-        response: {
-          message: '',
-          errors: [],
-          status: null
-        }
-      };
-    case 'FULFILLED':
-      return {
-        loading: false,
-        response: {
-          message: response.message || '',
-          errors: [],
-          status: response.status || 'success'
-        }
-      };
-    case 'REJECTED':
-      return {
-        loading: false,
-        response: {
-          message: response.message || '',
-          errors: response.errors || [],
-          status: response.status || 'error'
-        }
-      };
-    default: return {};
-  }
 };

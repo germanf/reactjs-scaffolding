@@ -17,14 +17,14 @@ const SignUpPageContainer = ({ history, match, handleSignUp, signUpResponse }) =
         render={() => (
           <SignUpPage
             handleSignUp={data => handleSignUp(data)}
-            serverErrors={signUpResponse.serverErrors}
+            signUpResponse={signUpResponse}
           />
         )}
       />
       <Route
         path={`${match.path}/success`}
         render={() => (
-          <p>Thank you. We have sent you an email to confirm your acount!</p>
+          <p>An activation email has been spent to your nominated email account</p>
         )}
       />
     </Switch>

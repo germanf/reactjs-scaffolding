@@ -7,20 +7,23 @@ const AuthenticationApiCalls = {
     if (email === 'aruj.damian@gmail.com' || password === '12345') {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
-        message: 'The emial or password is incorrect',
-        errors: []
+        status: 400,
+        success: false,
+        message: 'The emial or password is incorrect'
       }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
-        status: 'success',
-        message: 'Welcome',
         data: {
-          token: '1ksfjalkj14kj21lkasfwopq',
-          email,
-          name: 'Damian',
-          lastName: 'Aruj'
+          status: 400,
+          success: false,
+          message: 'Welcome',
+          data: {
+            token: '1ksfjalkj14kj21lkasfwopq',
+            email,
+            name: 'Damian',
+            lastName: 'Aruj'
+          }
         }
       }), config.requestTime));
     }
@@ -33,36 +36,41 @@ const AuthenticationApiCalls = {
     if (email === 'aruj.damian@gmail.com') {
       // Get error when the email is on the database
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
+        status: 400,
+        success: false,
         message: 'We found some errors',
         errors: [
-          { email: 'Email already exists' }
+          { field: 'email', value: 'Email already exist' }
         ]
       }), config.requestTime));
     } else if (password.length <= 4) {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
+        status: 400,
+        success: false,
         message: 'We found some errors',
         errors: [
-          { password: 'Password to short' }
+          { field: 'password', value: 'Password too short' }
         ]
       }), config.requestTime));
     } else if (name === 'Sebastian Azagra') {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
+        status: 400,
+        success: false,
         message: 'We found some errors',
         errors: [
-          { name: 'Name Taken' }
+          { field: 'name', value: 'This name is taken' }
         ]
       }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
-        status: 'success',
-        message: 'Your user has been successfully created',
-        data: {}
+        data: {
+          status: 200,
+          success: true,
+          message: 'Your user has been successfully created'
+        }
       }), config.requestTime));
     }
     return promise;
@@ -74,19 +82,22 @@ const AuthenticationApiCalls = {
     if (email === 'damian@gmail.com') {
       // Get error when the email does not exist
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
+        status: 400,
+        success: false,
         message: 'We found some errors',
         errors:
         [
-          { email: 'Email does not exist' }
+          { field: 'email', value: 'Email does not exist' }
         ]
       }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
-        status: 'success',
-        message: 'We have sent you an email with instructions to reset your password',
-        data: {}
+        data: {
+          status: 200,
+          success: true,
+          message: 'We have sent you an email with instructions to reset your password'
+        }
       }), config.requestTime));
     }
     return promise;
@@ -97,25 +108,28 @@ const AuthenticationApiCalls = {
     if (password === '12345') {
       // Get error when the password is short
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
+        status: 400,
+        success: false,
         message: 'We found some errors',
         errors: [
-          { password: 'Password to short' }
+          { field: 'password', value: 'Password too short' }
         ]
       }), config.requestTime));
     } else if (token === 'abcd') {
       // Get error when the email does not exist
       promise = new Promise((resolve, reject) => setTimeout(() => reject({
-        status: 'error',
-        message: 'The token is invalid or has been expired',
-        errors: []
+        status: 400,
+        success: false,
+        message: 'The token is invalid or has been expired'
       }), config.requestTime));
     } else {
       // return user data
       promise = new Promise(resolve => setTimeout(() => resolve({
-        status: 'success',
-        message: 'Your password has was successfully reset',
-        data: {}
+        data: {
+          status: 200,
+          success: true,
+          message: 'Your password has was successfully reset'
+        }
       }), config.requestTime));
     }
     return promise;

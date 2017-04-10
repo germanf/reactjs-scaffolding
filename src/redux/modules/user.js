@@ -1,5 +1,5 @@
 import Api from '../../api';
-import { getResponseObject, getDefaultRequestObject } from '../../utils/request';
+import RequestReducer, { getDefaultRequestObject, actionTypes } from '../../utils/request-reducer';
 import { layoutActions } from './layout';
 
 const { UserApiCalls } = Api;
@@ -22,27 +22,25 @@ const SET_USER_LOGGED = 'app/user/SET_USER_LOGGED';
 
 // Reducer
 const UserReducer = (state = initialState, action = {}) => {
-  switch (action.type) {
-    case `${GET_USER}_PENDING`:
-      return { ...state, getUserRequest: getResponseObject('PENDING', action.payload) };
-    case `${GET_USER}_FULFILLED`:
-      return { ...state, getUserRequest: getResponseObject('FULFILLED', action.payload) };
-    case `${GET_USER}_REJECTED`:
-      return { ...state, getUserRequest: getResponseObject('REJECTED', action.payload) };
-
-    case SET_USER_DATA:
-      return {
-        ...state,
-        data: action.payload.data
-      };
-
-    case SET_USER_LOGGED:
-      return {
-        ...state,
-        userLogged: true
-      };
-    default: return state;
+  if (actionTypes(GET_USER).includes(action.type)) {
+    return RequestReducer(state, action, GET_USER, 'getUserRequest');
   }
+
+  if (actionTypes(SET_USER_DATA).includes(action.type)) {
+    return {
+      ...state,
+      data: action.payload.data
+    };
+  }
+
+  if (actionTypes(SET_USER_LOGGED).includes(action.type)) {
+    return {
+      ...state,
+      userLogged: true
+    };
+  }
+
+  return state;
 };
 
 export default UserReducer;

@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+
 import config from '../../config';
 import Logger from '../../utils/log';
 
@@ -41,10 +43,7 @@ const AuthenticationApiCalls = {
 
     const {
       name,
-      last_name,
-      default_language,
-      address,
-      meditation_place,
+      lastName,
       email,
       password
     } = data;

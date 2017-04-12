@@ -2,9 +2,9 @@ import Api from '../../utils/request';
 
 const AuthenticationApiCalls = {
 
-  login: ({ email, password }) => Api.post('/open/user/login', { email, password }, false),
+  logIn: ({ email, password }) => Api.post('/auth/login', { email, password }),
 
-  signUp: ({ name, email, password }) => Api.post('/open/user', { name, email, password }, false),
+  signUp: ({ name, email, password }) => Api.post('/user', { name, email, password }, false),
 
   forgotPassword: ({ email }) => Api.post('/forgot-password', { email }, false),
 

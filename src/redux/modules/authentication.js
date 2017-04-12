@@ -53,14 +53,14 @@ export default AuthenticationReducer;
  * Login Action
  * @param {Object} containing { email, password }
  */
-const login = ({
+const logIn = ({
   email,
   password
 }) => (dispatch) => {
   dispatch(layoutActions.showLoading(true));
   dispatch({
     type: LOGIN,
-    payload: AuthenticationApiCalls.login({ email, password })
+    payload: AuthenticationApiCalls.logIn({ email, password })
   })
   .then((response) => {
     const responseValue = response.value.data;
@@ -171,7 +171,7 @@ const resetPassword = ({
 };
 
 export const authenticationActions = {
-  handleLogin: login,
+  handleLogIn: logIn,
   handleSignUp: signUp,
   handleLogOut: logOut,
   handleForgotPassword: forgotPassword,

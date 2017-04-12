@@ -6,5 +6,6 @@ export default {
     name: PropTypes.string.isRequired
   }),
   userLogged: PropTypes.bool,
-  handleGetUser: PropTypes.func
+  handleGetUser: PropTypes.func,
+  handleUpdateUser: PropTypes.func
 };

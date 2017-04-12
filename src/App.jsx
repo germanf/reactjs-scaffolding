@@ -5,20 +5,7 @@ import { userTypes, authenticationTypes } from './types';
 import register from './utils/redux-register';
 
 const App = props => (
-  <Layout
-    handleLogOut={props.handleLogOut}
-    userLogged={props.userLogged}
-    {...props}
-  />
+  <Layout {...props} />
 );
 
-App.propTypes = {
-  handleLogOut: authenticationTypes.handleLogOut.isRequired,
-  userLogged: userTypes.userLogged.isRequired
-};
-
-export default register(
-  ['userSelector'],
-  ['authentication.handleLogOut'],
-  App
-);
+export default App;

@@ -78,7 +78,7 @@ Layout.propTypes = {
 };
 
 export default register(
-  ['modalSelector', 'layoutSelector'],
+  ['userSelector', 'modalSelector', 'layoutSelector'],
   [],
   Layout
 );

@@ -1,4 +1,8 @@
+import getResponse from './standard-response';
 import createSelector from '../utils/create-selector';
+
+const getUserResponse = ({ user }) => getResponse(user, 'getUser');
+const updateUserResponse = ({ user }) => getResponse(user, 'updateUser');
 
 const getUser = ({ user }) => ({
   user: user.data,
@@ -6,5 +10,7 @@ const getUser = ({ user }) => ({
 });
 
 export default createSelector(
-  getUser
+  getUser,
+  getUserResponse,
+  updateUserResponse
 );

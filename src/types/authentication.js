@@ -17,6 +17,6 @@ export default {
   handleResetPassword: PropTypes.func,
   handleSignUp: PropTypes.func,
   handleForgotPassword: PropTypes.func,
-  handleLogin: PropTypes.func,
+  handleLogIn: PropTypes.func,
   handleLogOut: PropTypes.func
 };

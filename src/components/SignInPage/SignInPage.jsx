@@ -4,7 +4,7 @@ import { isEmail } from 'validator';
 import { Link } from 'react-router-dom';
 import { authenticationTypes } from '../../types';
 
-const SignInPage = ({ handleLogin, signInResponse }) => (
+const SignInPage = ({ handleLogIn, signInResponse }) => (
   <div className="page sign-in">
     <h1>Sign Into Aleign</h1>
 
@@ -12,7 +12,7 @@ const SignInPage = ({ handleLogin, signInResponse }) => (
       <p className="error">{signInResponse.message}</p>
     )}
 
-    <Form onSubmit={formData => handleLogin(formData)} >
+    <Form onSubmit={formData => handleLogIn(formData)} >
       <Form.Input
         name="email"
         placeHolder=""
@@ -67,7 +67,7 @@ const SignInPage = ({ handleLogin, signInResponse }) => (
 
 
 SignInPage.propTypes = {
-  handleLogin: React.PropTypes.func.isRequired,
+  handleLogIn: authenticationTypes.handleLogIn.isRequired,
   signInResponse: authenticationTypes.signInResponse.isRequired
 };
 

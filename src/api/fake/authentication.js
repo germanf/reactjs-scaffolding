@@ -1,8 +1,13 @@
 import config from '../../config';
+import Logger from '../../utils/log';
 
 const AuthenticationApiCalls = {
 
-  login: ({ email, password }) => {
+  logIn: (data) => {
+    Logger.info('POST - Authentication:logIn');
+    Logger.info(data);
+
+    const { email, password } = data;
     let promise;
     if (email === 'aruj.damian@gmail.com' || password === '12345') {
       // Get error when the password is short
@@ -30,8 +35,20 @@ const AuthenticationApiCalls = {
     return promise;
   },
 
+  signUp: (data) => {
+    Logger.info('POST - Authentication:signUp');
+    Logger.info(data);
 
-  signUp: ({ name, email, password }) => {
+    const {
+      name,
+      last_name,
+      default_language,
+      address,
+      meditation_place,
+      email,
+      password
+    } = data;
+
     let promise;
     if (email === 'aruj.damian@gmail.com') {
       // Get error when the email is on the database
@@ -77,7 +94,11 @@ const AuthenticationApiCalls = {
   },
 
 
-  forgotPassword: ({ email }) => {
+  forgotPassword: (data) => {
+    Logger.info('POST - Authentication:forgotPassword');
+    Logger.info(data);
+
+    const { email } = data;
     let promise;
     if (email === 'damian@gmail.com') {
       // Get error when the email does not exist
@@ -103,7 +124,10 @@ const AuthenticationApiCalls = {
     return promise;
   },
 
-  resetPassword: ({ token, password }) => {
+  resetPassword: (data) => {
+    Logger.info('POST - Authentication:forgotPassword');
+    Logger.info(data);
+    const { token, password } = data;
     let promise;
     if (password === '12345') {
       // Get error when the password is short
